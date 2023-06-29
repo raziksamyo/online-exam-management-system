@@ -129,12 +129,12 @@ function Teacher() {
                 </TableRow>
                 {rows.map((row) => (
                   <TableRow>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.Name}</TableCell>
-                    <TableCell>{row.Email}</TableCell>
-                    <TableCell>{row.Gender}</TableCell>
-                    <TableCell>{row.MobileNo}</TableCell>
-                    <TableCell>{row.joinDated}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.id}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.Name}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.Email}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.Gender}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.MobileNo}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.joinDated}</TableCell>
                     <TableCell>
                       <IconButton aria-label="view">
                         <VisibilityIcon />
