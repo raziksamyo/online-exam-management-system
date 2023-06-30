@@ -9,9 +9,12 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MDBox from "components/MDBox";
+import PropTypes from "prop-types";
 
-function ConfirmNotification(props) {
-  console.log("props", props);
+function ConfirmNotification({ row, index }) {
+  console.log("props", index);
+  console.log("Rows", row);
+  //   console.log("Index", index);
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
@@ -40,8 +43,19 @@ function ConfirmNotification(props) {
     </MDBox>
   );
 }
-// ConfirmNotification.propTypes = {
-//   Item: PropTypes.any.isRequired,
-//   RowsNo: PropTypes.any.isRequired,
-// };
+const objectShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  Name: PropTypes.string.isRequired,
+  Email: PropTypes.number.isRequired,
+  Gender: PropTypes.string.isRequired,
+  MobileNo: PropTypes.number.isRequired,
+  joinDated: PropTypes.joinDated.isRequired,
+  // Add more properties as needed
+});
+
+ConfirmNotification.propTypes = {
+  row: PropTypes.arrayOf(objectShape).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 export default ConfirmNotification;
