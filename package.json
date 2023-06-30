@@ -33,6 +33,7 @@
     "react-chartjs-2": "3.0.4",
     "react-dom": "17.0.2",
     "react-github-btn": "1.2.1",
+    "react-hook-form": "^7.45.1",
     "react-pro-sidebar": "^1.0.0-alpha.10",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
@@ -40,7 +41,7 @@
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",
     "web-vitals": "2.1.4",
-    "yup": "0.32.11"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

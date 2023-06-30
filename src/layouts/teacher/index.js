@@ -22,10 +22,10 @@ import MDBox from "components/MDBox";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import ConfirmNotification from "dalog/Teacher/delete";
+import View from "dalog/Teacher/view";
+import Edit from "dalog/Teacher/edit";
+import Add from "dalog/Teacher/addTeacher";
 
 const TableHeaderTypography = styled(MDTypography)(() => ({
   fontWeight: "bold",
@@ -33,7 +33,9 @@ const TableHeaderTypography = styled(MDTypography)(() => ({
   letterSpacing: "0.17px",
   textAlign: "center",
 }));
-
+// const WhiteIconButton = styled(IconButton)({
+//   backgroundColor: "white",
+// });
 const rows = [
   {
     id: 1,
@@ -91,12 +93,13 @@ const rows = [
   },
 ];
 function Teacher() {
+  // const [open, setOpen] = React.useState(false);
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="flex-end">
         <MDButton variant="contined" sx={{ textAlign: "end" }}>
-          Add teacher
+          <Add />
         </MDButton>
       </MDBox>
       <Grid container>
@@ -127,7 +130,7 @@ function Teacher() {
                     <TableHeaderTypography>Action</TableHeaderTypography>
                   </TableCell>
                 </TableRow>
-                {rows.map((row) => (
+                {rows.map((row, index) => (
                   <TableRow>
                     <TableCell sx={{ fontWeight: 100 }}>{row.id}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Name}</TableCell>
@@ -135,16 +138,10 @@ function Teacher() {
                     <TableCell sx={{ fontWeight: 100 }}>{row.Gender}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.MobileNo}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.joinDated}</TableCell>
-                    <TableCell>
-                      <IconButton aria-label="view">
-                        <VisibilityIcon />
-                      </IconButton>
-                      <IconButton aria-label="delete">
-                        <DeleteIcon />
-                      </IconButton>
-                      <IconButton aria-label="Edit">
-                        <ModeEditIcon />
-                      </IconButton>
+                    <TableCell sx={{ display: "flex" }}>
+                      <View />
+                      <ConfirmNotification row={rows} index={index} />
+                      <Edit />
                     </TableCell>
                   </TableRow>
                 ))}
