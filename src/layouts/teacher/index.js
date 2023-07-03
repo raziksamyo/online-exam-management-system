@@ -17,11 +17,18 @@ Coded by www.creative-tim.com
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
-import MDBox from "components/MDBox";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Grid,
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
+  Button,
+} from "@mui/material";
 import ConfirmNotification from "dalog/Teacher/delete";
 import View from "dalog/Teacher/view";
 import Edit from "dalog/Teacher/edit";
@@ -97,11 +104,11 @@ function Teacher() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox display="flex" justifyContent="flex-end">
-        <MDButton variant="contined" sx={{ textAlign: "end" }} color="info">
+      <Box display="flex" justifyContent="flex-end">
+        <Button variant="contined" sx={{ textAlign: "end" }} color="success">
           <Add />
-        </MDButton>
-      </MDBox>
+        </Button>
+      </Box>
       <Grid container>
         <Grid item xs={12}>
           <TableContainer>

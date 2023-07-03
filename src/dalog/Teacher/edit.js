@@ -1,9 +1,18 @@
-import { Grid, IconButton, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  TextField,
+  DialogTitle,
+} from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
@@ -25,11 +34,18 @@ function Edit() {
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 700, padding: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
+        <DialogTitle>Add Personal information for Teacher </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent>
+          <DialogContent sx={{ overflow: "hidden" }}>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

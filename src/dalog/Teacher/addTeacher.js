@@ -1,8 +1,17 @@
-import { Grid, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
+import {
+  Grid,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  TextField,
+  IconButton,
+  DialogTitle,
+} from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -22,11 +31,18 @@ function Add() {
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
+        <DialogTitle>Add Teacher profile </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -114,7 +130,6 @@ function Add() {
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  label="JoinDate"
                   helperText={errors?.JoinDate?.message}
                   error={errors?.JoinDate}
                 />
@@ -132,7 +147,6 @@ function Add() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="DOB"
                   type="Date"
                   {...register("dob", { required: "Please enter dob " })}
                   error={!!errors.dob}
@@ -142,7 +156,6 @@ function Add() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Upload Photo"
                   type="file"
                   {...register("photo", { required: "Please select a photo" })}
                   error={!!errors.photo}
@@ -152,7 +165,7 @@ function Add() {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <MDButton type="submit" variant="contained" sx={{ mr: 1 }}>
+            <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
             <MDButton variant="outlined" color="secondary" onClick={() => setOpen(false)}>
