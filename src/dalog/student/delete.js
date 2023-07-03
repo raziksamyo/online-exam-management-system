@@ -12,9 +12,10 @@ import MDBox from "components/MDBox";
 import PropTypes from "prop-types";
 
 function ConfirmNotification({ row, index }) {
-  console.log("props", index);
-  console.log("Rows", row);
-  //   console.log("Index", index);
+  //   console.log("props", index);
+  //   console.log("Rows", row);
+  console.log("props", row);
+  console.log("Index", index);
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
@@ -43,18 +44,16 @@ function ConfirmNotification({ row, index }) {
     </MDBox>
   );
 }
-const objectShape = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  Name: PropTypes.string.isRequired,
-  Email: PropTypes.number.isRequired,
-  Gender: PropTypes.string.isRequired,
-  MobileNo: PropTypes.number.isRequired,
-  joinDated: PropTypes.joinDated.isRequired,
-  // Add more properties as needed
-});
 
 ConfirmNotification.propTypes = {
-  row: PropTypes.arrayOf(objectShape).isRequired,
+  row: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    Name: PropTypes.string.isRequired,
+    Email: PropTypes.number.isRequired,
+    Gender: PropTypes.string.isRequired,
+    MobileNo: PropTypes.number.isRequired,
+    joinDated: PropTypes.number.isRequired,
+  }).isRequired,
   index: PropTypes.number.isRequired,
 };
 

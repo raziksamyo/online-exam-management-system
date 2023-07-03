@@ -74,7 +74,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 4,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -83,7 +83,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 5,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -98,7 +98,7 @@ function Teacher() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="flex-end">
-        <MDButton variant="contined" sx={{ textAlign: "end" }}>
+        <MDButton variant="contined" sx={{ textAlign: "end" }} color="info">
           <Add />
         </MDButton>
       </MDBox>
@@ -132,7 +132,7 @@ function Teacher() {
                 </TableRow>
                 {rows.map((row, index) => (
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.id}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{index + 1}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Name}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Email}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Gender}</TableCell>

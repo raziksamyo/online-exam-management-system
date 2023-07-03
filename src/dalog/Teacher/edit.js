@@ -123,7 +123,6 @@ function Edit() {
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  label="JoinDate"
                   defaultValue="29/06/2023"
                   helperText={errors?.JoinDate?.message}
                   error={errors?.JoinDate}
@@ -132,18 +131,36 @@ function Edit() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Upload Photo"
                   type="file"
                   {...register("photo", { required: "Please select a photo" })}
-                  defaultValue="photo"
                   error={!!errors.photo}
                   helperText={errors.photo?.message}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  label="Experince"
+                  {...register("experince", { required: "PLease add experience" })}
+                  error={!!errors.experince}
+                  helperText={errors?.experince?.meassage}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  label="Gender"
+                  {...register("gender", "Please add gender")}
+                  error={!!errors.meassage}
+                  helperText={errors?.gender?.meassage}
                 />
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
-            <MDButton type="submit" variant="contained" sx={{ mr: 1 }}>
+            <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
             <MDButton variant="outlined" color="secondary" onClick={() => setOpen(false)}>

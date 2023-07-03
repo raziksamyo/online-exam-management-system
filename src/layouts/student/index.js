@@ -47,7 +47,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 2,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -56,7 +56,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 3,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -65,7 +65,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 4,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -74,7 +74,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 5,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -83,7 +83,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 6,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -94,6 +94,7 @@ const rows = [
 ];
 function Student() {
   // const [open, setOpen] = React.useState(false);
+  const data = rows;
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -140,7 +141,7 @@ function Student() {
                     <TableCell sx={{ fontWeight: 100 }}>{row.joinDated}</TableCell>
                     <TableCell sx={{ display: "flex" }}>
                       <View />
-                      <ConfirmNotification row={rows} index={index} />
+                      <ConfirmNotification row={data} index={index} />
                       <Edit />
                     </TableCell>
                   </TableRow>
