@@ -19,16 +19,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDTypography from "components/MDTypography";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import {
-  Grid,
-  Table,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Box,
-  Button,
-} from "@mui/material";
+import { Grid, Table, TableCell, TableContainer, TableHead, TableRow, Box } from "@mui/material";
 import ConfirmNotification from "dalog/Teacher/delete";
 import View from "dalog/Teacher/view";
 import Edit from "dalog/Teacher/edit";
@@ -105,9 +96,7 @@ function Teacher() {
     <DashboardLayout>
       <DashboardNavbar />
       <Box display="flex" justifyContent="flex-end">
-        <Button variant="contined" sx={{ textAlign: "end" }} color="success">
-          <Add />
-        </Button>
+        <Add />
       </Box>
       <Grid container>
         <Grid item xs={12}>

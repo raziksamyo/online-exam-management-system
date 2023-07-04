@@ -11,7 +11,7 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
@@ -27,8 +27,8 @@ function Edit() {
   };
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)}>
-        <ModeEditIcon />
+      <IconButton onClick={() => setOpen(true)} color="success">
+        <BorderColorOutlinedIcon />
       </IconButton>
       <Dialog
         open={open}
@@ -56,8 +56,21 @@ function Edit() {
                   }}
                   label="Name"
                   defaultValue="Mohit"
-                  helperText={errors.name?.message}
-                  error={errors.name}
+                  helperText={errors.firstname?.message}
+                  error={errors.firstname}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  {...register("lastname", { required: "Please enter a name" })}
+                  fullWidth
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value);
+                  }}
+                  label="lastName"
+                  defaultValue="Mohit"
+                  helperText={errors.lastname?.message}
+                  error={errors.lastname}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -156,6 +169,7 @@ function Edit() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
+                  defaultValue="2years"
                   type="text"
                   label="Experince"
                   {...register("experince", { required: "PLease add experience" })}
@@ -168,6 +182,7 @@ function Edit() {
                   fullWidth
                   type="text"
                   label="Gender"
+                  defaultValue="Male"
                   {...register("gender", "Please add gender")}
                   error={!!errors.meassage}
                   helperText={errors?.gender?.meassage}
@@ -179,7 +194,7 @@ function Edit() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
               Discard
             </MDButton>
           </DialogActions>

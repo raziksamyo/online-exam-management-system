@@ -1,15 +1,15 @@
 import { Grid, Dialog, DialogContent, IconButton, Card } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useState } from "react";
 
 function View() {
   const [open, setOpen] = useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)}>
-        <VisibilityIcon />
+      <IconButton onClick={() => setOpen(true)} color="info">
+        <RemoveRedEyeOutlinedIcon />
       </IconButton>
       <Dialog
         onClose={() => setOpen(false)}
