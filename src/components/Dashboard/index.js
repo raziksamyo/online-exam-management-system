@@ -10,20 +10,20 @@ export default function DashboardMain() {
       <Box>
         <Grid
           container
-          justify="center"
-          alignItems="center"
-          spacing={2}
-          style={{
+          // justify="center"
+          // alignItems="center"
+          // spacing={2}
+          sx={{
             backgroundImage: `url(${img})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            height: "88vh",
-            width: "100%",
+            height: "auto",
+            // width: "100%",
           }}
         >
           {dayWord.map((item) => (
-            <Grid item xs={3}>
+            <Grid item xs={12} sm={6} md={4} lg={3} sx={{ p: 1 }}>
               <BasicCard heading={item.heading} count={item.count} />
             </Grid>
           ))}
