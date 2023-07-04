@@ -40,14 +40,16 @@ function Add() {
           onClick={() => setOpen(true)}
           sx={{
             borderRadius: "25px",
-            backgroundColor: "green",
-            color: "whitesmoke",
+            backgroundColor: "#308AEC",
+            color: "#FFFFFF",
             fontWeight: "normal !important",
-            fontSize: "13px",
+            fontSize: "10px",
+            padding: "1px 10px",
             "&:hover": {
-              backgroundColor: "red",
+              backgroundColor: "#32AADD",
+              color: "#FFFFFF",
             },
-            "&:focus:not(:hover)": { color: "whitesmoke" },
+            "&:focus:not(:hover)": { color: "#FFFFFF" },
           }}
         >
           Add Teacher

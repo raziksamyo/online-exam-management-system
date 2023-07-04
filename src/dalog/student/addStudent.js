@@ -17,7 +17,24 @@ function Added() {
   };
   return (
     <MDBox>
-      <MDButton onClick={() => setOpen(true)}>Add Student</MDButton>
+      <MDButton
+        onClick={() => setOpen(true)}
+        sx={{
+          borderRadius: "25px",
+          backgroundColor: "#308AEC",
+          color: "#FFFFFF",
+          fontWeight: "normal !important",
+          fontSize: "10px",
+          padding: "1px 10px",
+          "&:hover": {
+            backgroundColor: "#32AADD",
+            color: "#FFFFFF",
+          },
+          "&:focus:not(:hover)": { color: "#FFFFFF" },
+        }}
+      >
+        Add Student
+      </MDButton>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

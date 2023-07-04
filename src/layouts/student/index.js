@@ -17,7 +17,6 @@ Coded by www.creative-tim.com
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
@@ -99,9 +98,7 @@ function Student() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="flex-end">
-        <MDButton variant="contined" sx={{ textAlign: "end" }}>
-          <Added />
-        </MDButton>
+        <Added />
       </MDBox>
       <Grid container>
         <Grid item xs={12}>
