@@ -13,12 +13,20 @@ import MDBox from "components/MDBox";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 
-function ConfirmNotification(props) {
+function Delete(props) {
   console.log("props", props);
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setIsOpen(true)} color="error">
+      <IconButton
+        onClick={() => setIsOpen(true)}
+        color="error"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(255, 0, 0, 0.1)",
+          },
+        }}
+      >
         <DeleteOutlineOutlinedIcon />
       </IconButton>
       <Dialog
@@ -56,4 +64,4 @@ function ConfirmNotification(props) {
 //   Item: PropTypes.any.isRequired,
 //   RowsNo: PropTypes.any.isRequired,
 // };
-export default ConfirmNotification;
+export default Delete;
