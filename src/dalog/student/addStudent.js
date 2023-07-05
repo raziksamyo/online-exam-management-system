@@ -1,10 +1,11 @@
-import { Grid, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
+import { Grid, Dialog, DialogActions, DialogContent, TextField, Button, Box } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { FileDocumentEdit } from "mdi-material-ui";
 
-function Added() {
+function Add() {
   const [open, setOpen] = useState(false);
   const {
     handleSubmit,
@@ -17,24 +18,27 @@ function Added() {
   };
   return (
     <MDBox>
-      <MDButton
-        onClick={() => setOpen(true)}
-        sx={{
-          borderRadius: "25px",
-          backgroundColor: "#308AEC",
-          color: "#FFFFFF",
-          fontWeight: "normal !important",
-          fontSize: "10px",
-          padding: "1px 10px",
-          "&:hover": {
-            backgroundColor: "#32AADD",
+      <Box sx={{ marginBottom: "15px" }}>
+        <Button
+          onClick={() => setOpen(true)}
+          startIcon={<FileDocumentEdit />}
+          sx={{
+            borderRadius: "10px",
+            backgroundColor: "#308AEC",
             color: "#FFFFFF",
-          },
-          "&:focus:not(:hover)": { color: "#FFFFFF" },
-        }}
-      >
-        Add Student
-      </MDButton>
+            fontWeight: "normal !important",
+            fontSize: "12px",
+            padding: "1px 10px",
+            "&:hover": {
+              backgroundColor: "#32AADD",
+              color: "#FFFFFF",
+            },
+            "&:focus:not(:hover)": { color: "#FFFFFF" },
+          }}
+        >
+          Add Student
+        </Button>
+      </Box>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -121,4 +125,4 @@ function Added() {
     </MDBox>
   );
 }
-export default Added;
+export default Add;
