@@ -17,13 +17,14 @@ Coded by www.creative-tim.com
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDTypography from "components/MDTypography";
+import MDBox from "components/MDBox";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { Grid, Table, TableCell, TableContainer, TableHead, TableRow, Box } from "@mui/material";
-import ConfirmNotification from "dalog/Teacher/delete";
-import View from "dalog/Teacher/view";
-import Edit from "dalog/Teacher/edit";
-import Add from "dalog/Teacher/addTeacher";
+import { Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import ConfirmNotification from "dalog/student/delete";
+import View from "dalog/student/view";
+import Edit from "dalog/student/edit";
+import Added from "dalog/student/addStudent";
 
 const TableHeaderTypography = styled(MDTypography)(() => ({
   fontWeight: "bold",
@@ -45,7 +46,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
+    id: 2,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -54,16 +55,7 @@ const rows = [
     actions: "Edit",
   },
   {
-    id: 1,
-    Name: "Varun Sharma",
-    Email: "johndoe@example.com",
-    Gender: "Male",
-    MobileNo: 9111112345,
-    joinDated: "2023-06-01",
-    actions: "Edit",
-  },
-  {
-    id: 1,
+    id: 3,
     Name: "Varun Sharma",
     Email: "johndoe@example.com",
     Gender: "Male",
@@ -89,15 +81,25 @@ const rows = [
     joinDated: "2023-06-01",
     actions: "Edit",
   },
+  {
+    id: 6,
+    Name: "Varun Sharma",
+    Email: "johndoe@example.com",
+    Gender: "Male",
+    MobileNo: 9111112345,
+    joinDated: "2023-06-01",
+    actions: "Edit",
+  },
 ];
-function Teacher() {
+function Students() {
   // const [open, setOpen] = React.useState(false);
+  const data = rows;
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Box display="flex" justifyContent="flex-end">
-        <Add />
-      </Box>
+      <MDBox display="flex" justifyContent="flex-end">
+        <Added />
+      </MDBox>
       <Grid container>
         <Grid item xs={12}>
           <TableContainer>
@@ -128,7 +130,7 @@ function Teacher() {
                 </TableRow>
                 {rows.map((row, index) => (
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 100 }}>{index + 1}</TableCell>
+                    <TableCell sx={{ fontWeight: 100 }}>{row.id}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Name}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Email}</TableCell>
                     <TableCell sx={{ fontWeight: 100 }}>{row.Gender}</TableCell>
@@ -136,7 +138,7 @@ function Teacher() {
                     <TableCell sx={{ fontWeight: 100 }}>{row.joinDated}</TableCell>
                     <TableCell sx={{ display: "flex" }}>
                       <View />
-                      <ConfirmNotification row={rows} index={index} />
+                      <ConfirmNotification row={data} index={index} />
                       <Edit />
                     </TableCell>
                   </TableRow>
@@ -150,4 +152,4 @@ function Teacher() {
   );
 }
 
-export default Teacher;
+export default Students;

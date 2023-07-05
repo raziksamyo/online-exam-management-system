@@ -1,61 +1,67 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Teacher from "layouts/teacher";
-import Student from "layouts/student";
+import Teachers from "layouts/teachers";
+import Students from "layouts/students";
 import Courses from "layouts/courses";
-import Exam from "layouts/exam";
-import Result from "layouts/result";
+import Exams from "layouts/exams";
+import Results from "layouts/results";
+
 // @mui icons
-import Icon from "@mui/material/Icon";
+import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import SchoolIcon from "@mui/icons-material/School";
+import LibraryBooksRoundedIcon from "@mui/icons-material/LibraryBooksRounded";
+import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 
 const routes = [
   {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
-    icon: <Icon fontSize="small">dashboard</Icon>,
+    icon: <DashboardRoundedIcon />,
     route: "/dashboard",
     component: <Dashboard />,
   },
   {
     type: "collapse",
-    name: "Teacher",
-    key: "teacher",
-    icon: <Icon fontSize="small">Teacher</Icon>,
-    route: "/teacher",
-    component: <Teacher />,
+    name: "Teachers",
+    key: "teachers",
+    icon: <GroupsRoundedIcon />,
+    route: "/teachers",
+    component: <Teachers />,
   },
   {
     type: "collapse",
-    name: "Student",
-    key: "student",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/student",
-    component: <Student />,
+    name: "Students",
+    key: "students",
+    icon: <SchoolIcon />,
+    route: "/students",
+    component: <Students />,
   },
   {
     type: "collapse",
     name: "Courses",
     key: "courses",
-    icon: <Icon fontSize="small">book</Icon>,
+    icon: <LibraryBooksRoundedIcon />,
     route: "/courses",
     component: <Courses />,
   },
   {
     type: "collapse",
-    name: "Exam",
+    name: "Exams",
     key: "exam",
-    icon: <Icon fontSize="small">EditCalendar</Icon>,
-    route: "/exam",
-    component: <Exam />,
+    icon: <BorderColorRoundedIcon />,
+    route: "/exams",
+    component: <Exams />,
   },
   {
     type: "collapse",
-    name: "Result",
+    name: "Results",
     key: "result",
-    icon: <Icon fontSize="small">EditNote</Icon>,
-    route: "/result",
-    component: <Result />,
+    icon: <AssignmentTurnedInRoundedIcon />,
+    route: "/results",
+    component: <Results />,
   },
 ];
 

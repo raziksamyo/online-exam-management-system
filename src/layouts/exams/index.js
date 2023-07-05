@@ -4,7 +4,8 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box } from "@mui/material";
-import Addeds from "dalog/Result/add";
+import Addeds from "dalog/couses/add";
+import Edit from "dalog/couses/edit";
 
 // import { makeStyles } from "@mui/styles";
 
@@ -22,32 +23,48 @@ const columns = [
     minWidth: 70,
   },
   {
-    field: "CoursesId",
+    field: "CoursesID",
     headerName: "COURSESID",
     minWidth: 150,
   },
   {
-    field: "StudentId",
-    headerName: "STUDENTID",
+    field: "examTitle",
+    headerName: "EXAMTITLE",
     minWidth: 150,
   },
   {
-    field: "Status",
-    headerName: "STATUS",
-    minWidth: 150,
+    field: "date",
+    headerName: "DATE",
+    minWidth: 100,
   },
   {
-    field: "MarksObtained",
-    headerName: "MARKSOBTAINED",
-    minWidth: 150,
+    field: "StartTime",
+    headerName: "STARTTIME",
+    minWidth: 100,
+  },
+  {
+    field: "Duration",
+    headerName: "DURATION",
+    minWidth: 50,
+  },
+  {
+    field: "TotalQuestion",
+    headerName: "TOTALQUESTION",
+    minWidth: 50,
+  },
+  {
+    field: "Marks",
+    headerName: "MARKS",
+    minWidth: 50,
   },
   {
     field: "actions",
     headerName: "Actions",
-    minWidth: 150,
+    minWidth: 130,
     renderCell: () => (
       <MDBox sx={{ display: "flex" }}>
         <Delete />
+        <Edit />
       </MDBox>
     ),
   },
@@ -56,22 +73,28 @@ const columns = [
 const data = [
   {
     id: 1,
-    teacherID: 12345678061,
-    CoursesId: 12345506,
-    Titel: "Nodejs",
-    description: "Nodejs is a runtime environment in JavaScript",
+    CoursesID: 12345506,
+    examTitle: "nodejs",
+    date: "30-07-2023",
+    StartTime: "12pm",
+    Duration: "1hrs",
+    TotalQuestion: 10,
+    Marks: 50,
   },
   {
     id: 2,
-    teacherID: 12345678062,
-    CoursesId: 12345507,
-    Titel: "React",
-    description: "React is a JavaScript library for building user interfaces",
+    CoursesID: 12345506,
+    examTitle: "Reactjs",
+    date: "30-07-2023",
+    StartTime: "12pm",
+    Duration: "1hrs",
+    TotalQuestion: 10,
+    Marks: 150,
   },
   // Add more data rows as needed
 ];
 
-function Result() {
+function Exams() {
   // const classes = useStyles();
   return (
     <DashboardLayout>
@@ -95,4 +118,4 @@ function Result() {
   );
 }
 
-export default Result;
+export default Exams;

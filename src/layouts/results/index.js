@@ -4,8 +4,7 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box } from "@mui/material";
-import Addeds from "dalog/couses/add";
-import Edit from "dalog/couses/edit";
+import Addeds from "dalog/Result/add";
 
 // import { makeStyles } from "@mui/styles";
 
@@ -23,48 +22,32 @@ const columns = [
     minWidth: 70,
   },
   {
-    field: "CoursesID",
+    field: "CoursesId",
     headerName: "COURSESID",
     minWidth: 150,
   },
   {
-    field: "examTitle",
-    headerName: "EXAMTITLE",
+    field: "StudentId",
+    headerName: "STUDENTID",
     minWidth: 150,
   },
   {
-    field: "date",
-    headerName: "DATE",
-    minWidth: 100,
+    field: "Status",
+    headerName: "STATUS",
+    minWidth: 150,
   },
   {
-    field: "StartTime",
-    headerName: "STARTTIME",
-    minWidth: 100,
-  },
-  {
-    field: "Duration",
-    headerName: "DURATION",
-    minWidth: 50,
-  },
-  {
-    field: "TotalQuestion",
-    headerName: "TOTALQUESTION",
-    minWidth: 50,
-  },
-  {
-    field: "Marks",
-    headerName: "MARKS",
-    minWidth: 50,
+    field: "MarksObtained",
+    headerName: "MARKSOBTAINED",
+    minWidth: 150,
   },
   {
     field: "actions",
     headerName: "Actions",
-    minWidth: 130,
+    minWidth: 150,
     renderCell: () => (
       <MDBox sx={{ display: "flex" }}>
         <Delete />
-        <Edit />
       </MDBox>
     ),
   },
@@ -73,28 +56,22 @@ const columns = [
 const data = [
   {
     id: 1,
-    CoursesID: 12345506,
-    examTitle: "nodejs",
-    date: "30-07-2023",
-    StartTime: "12pm",
-    Duration: "1hrs",
-    TotalQuestion: 10,
-    Marks: 50,
+    teacherID: 12345678061,
+    CoursesId: 12345506,
+    Titel: "Nodejs",
+    description: "Nodejs is a runtime environment in JavaScript",
   },
   {
     id: 2,
-    CoursesID: 12345506,
-    examTitle: "Reactjs",
-    date: "30-07-2023",
-    StartTime: "12pm",
-    Duration: "1hrs",
-    TotalQuestion: 10,
-    Marks: 150,
+    teacherID: 12345678062,
+    CoursesId: 12345507,
+    Titel: "React",
+    description: "React is a JavaScript library for building user interfaces",
   },
   // Add more data rows as needed
 ];
 
-function Exams() {
+function Results() {
   // const classes = useStyles();
   return (
     <DashboardLayout>
@@ -118,4 +95,4 @@ function Exams() {
   );
 }
 
-export default Exams;
+export default Results;
