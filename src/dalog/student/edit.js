@@ -3,7 +3,7 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 
 function Edit() {
   const [open, setOpen] = useState(false);
@@ -18,8 +18,16 @@ function Edit() {
   };
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)}>
-        <ModeEditIcon />
+      <IconButton
+        onClick={() => setOpen(true)}
+        color="success"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(96, 233, 101, 0.18)",
+          },
+        }}
+      >
+        <BorderColorOutlinedIcon />
       </IconButton>
       <Dialog
         open={open}

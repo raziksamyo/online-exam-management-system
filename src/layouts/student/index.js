@@ -1,40 +1,49 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import MDTypography from "components/MDTypography";
+// import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import { Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import ConfirmNotification from "dalog/student/delete";
-import View from "dalog/student/view";
+import { Grid } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+// import ConfirmNotification from "dalog/student/delete";
+import Add from "dalog/student/addStudent";
+import Delete from "dalog/student/delete";
 import Edit from "dalog/student/edit";
-import Added from "dalog/student/addStudent";
+import View from "dalog/student/view";
 
-const TableHeaderTypography = styled(MDTypography)(() => ({
-  fontWeight: "bold",
-  fontSize: "1rem",
-  letterSpacing: "0.17px",
-  textAlign: "center",
-}));
+// const TableHeaderTypography = styled(MDTypography)(() => ({
+//   fontWeight: "bold",
+//   fontSize: "1rem",
+//   letterSpacing: "0.17px",
+//   textAlign: "center",
+// }));
 // const WhiteIconButton = styled(IconButton)({
 //   backgroundColor: "white",
 // });
+
+const columns = [
+  { flex: 0.01, field: "id", headerName: "#", minWidth: 100 },
+  { flex: 0.18, field: "Name", headerName: "Student Name", minWidth: 150 },
+  { flex: 0.25, field: "Email", headerName: "Email", minWidth: 200 },
+  { flex: 0.17, field: "Gender", headerName: "Gender", minWidth: 120 },
+  { flex: 0.17, field: "MobileNo", headerName: "Mobile", minWidth: 200 },
+  { flex: 0.18, field: "joinDated", headerName: "Joining Date", width: 200 },
+  {
+    flex: 0.14,
+    field: "action",
+    headerName: "Action",
+    width: 350,
+    renderCell: () => (
+      <MDBox sx={{ display: "flex" }}>
+        <View />
+        <Edit />
+        <Delete />
+      </MDBox>
+    ),
+  },
+];
+
 const rows = [
   {
     id: 1,
@@ -92,60 +101,31 @@ const rows = [
   },
 ];
 function Student() {
-  // const [open, setOpen] = React.useState(false);
-  const data = rows;
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox display="flex" justifyContent="flex-end">
-        <Added />
+        <Add />
       </MDBox>
       <Grid container>
         <Grid item xs={12}>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ width: "5%" }}>
-                    <TableHeaderTypography>#</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "10%" }}>
-                    <TableHeaderTypography>Name</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "15%" }}>
-                    <TableHeaderTypography>Email</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "5%" }}>
-                    <TableHeaderTypography>Gender</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "15%" }}>
-                    <TableHeaderTypography>Mobile</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "15%" }}>
-                    <TableHeaderTypography>Joining Date</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell sx={{ width: "20%" }}>
-                    <TableHeaderTypography>Action</TableHeaderTypography>
-                  </TableCell>
-                </TableRow>
-                {rows.map((row, index) => (
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.id}</TableCell>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.Name}</TableCell>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.Email}</TableCell>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.Gender}</TableCell>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.MobileNo}</TableCell>
-                    <TableCell sx={{ fontWeight: 100 }}>{row.joinDated}</TableCell>
-                    <TableCell sx={{ display: "flex" }}>
-                      <View />
-                      <ConfirmNotification row={data} index={index} />
-                      <Edit />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableHead>
-            </Table>
-          </TableContainer>
+          <DataGrid
+            // disableColumnMenu
+            // disableColumnFilter
+            // disableColumnSelector
+            disableRowSelectionOnClick
+            // disableSelectionOnClick
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5]}
+          />
         </Grid>
       </Grid>
     </DashboardLayout>

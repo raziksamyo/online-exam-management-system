@@ -13,6 +13,7 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { FileDocumentEdit } from "mdi-material-ui";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -35,15 +36,16 @@ function Add() {
 
   return (
     <Grid>
-      <Box sx={{ marginBottom: "5px" }}>
+      <Box sx={{ marginBottom: "15px" }}>
         <Button
           onClick={() => setOpen(true)}
+          startIcon={<FileDocumentEdit />}
           sx={{
-            borderRadius: "25px",
+            borderRadius: "10px",
             backgroundColor: "#308AEC",
             color: "#FFFFFF",
             fontWeight: "normal !important",
-            fontSize: "10px",
+            fontSize: "12px",
             padding: "1px 10px",
             "&:hover": {
               backgroundColor: "#32AADD",
@@ -79,7 +81,7 @@ function Add() {
                     onChange={(e) => {
                       setValue(e.target.name, e.target.value);
                     }}
-                    label="firstName"
+                    label="First Name"
                     helperText={errors?.firstname?.message}
                     error={errors?.firstname}
                   />
@@ -91,7 +93,7 @@ function Add() {
                     onChange={(e) => {
                       setValue(e.target.name, e.target.value);
                     }}
-                    label="lastName"
+                    label="Last Name"
                     helperText={errors?.lastname?.message}
                     error={errors?.lastname}
                   />

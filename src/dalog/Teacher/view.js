@@ -8,7 +8,15 @@ function View() {
   const [open, setOpen] = useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)} color="info">
+      <IconButton
+        onClick={() => setOpen(true)}
+        color="info"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(178, 205, 241, 0.62)",
+          },
+        }}
+      >
         <RemoveRedEyeOutlinedIcon />
       </IconButton>
       <Dialog
