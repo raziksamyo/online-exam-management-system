@@ -92,11 +92,7 @@ function Teachers() {
       <Grid container>
         <Grid item xs={12}>
           <DataGrid
-            // disableColumnMenu
-            // disableColumnFilter
-            // disableColumnSelector
             disableRowSelectionOnClick
-            // disableSelectionOnClick
             rows={rows}
             columns={columns}
             initialState={{
