@@ -1,63 +1,96 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// Material Dashboard 2 React example components
+import { DataGrid } from "@mui/x-data-grid";
+import Delete from "dalog/couses/delete";
+import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Grid, Table, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import MDTypography from "components/MDTypography";
-import { styled } from "@mui/material/styles";
+import { Box } from "@mui/material";
+import Addeds from "dalog/Result/add";
 
-const TableHeaderTypography = styled(MDTypography)(() => ({
-  fontWeight: "bold",
-  fontSize: "1rem",
-  letterSpacing: "0.17px",
-  textAlign: "center",
-}));
+// import { makeStyles } from "@mui/styles";
+
+// const useStyles = makeStyles({
+//   headerCell: {
+//     fontSize: "14px",
+//     outline: "none",
+//   },
+// });
+
+const columns = [
+  {
+    field: "id",
+    headerName: "#",
+    minWidth: 70,
+  },
+  {
+    field: "CoursesId",
+    headerName: "COURSESID",
+    minWidth: 150,
+  },
+  {
+    field: "StudentId",
+    headerName: "STUDENTID",
+    minWidth: 150,
+  },
+  {
+    field: "Status",
+    headerName: "STATUS",
+    minWidth: 150,
+  },
+  {
+    field: "MarksObtained",
+    headerName: "MARKSOBTAINED",
+    minWidth: 150,
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    minWidth: 150,
+    renderCell: () => (
+      <MDBox sx={{ display: "flex" }}>
+        <Delete />
+      </MDBox>
+    ),
+  },
+];
+
+const data = [
+  {
+    id: 1,
+    teacherID: 12345678061,
+    CoursesId: 12345506,
+    Titel: "Nodejs",
+    description: "Nodejs is a runtime environment in JavaScript",
+  },
+  {
+    id: 2,
+    teacherID: 12345678062,
+    CoursesId: 12345507,
+    Titel: "React",
+    description: "React is a JavaScript library for building user interfaces",
+  },
+  // Add more data rows as needed
+];
 
 function Result() {
+  // const classes = useStyles();
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Grid container>
-        <Grid item xs={12}>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <TableHeaderTypography>#</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell>
-                    <TableHeaderTypography>CoursesId</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell>
-                    <TableHeaderTypography>Student ID </TableHeaderTypography>
-                  </TableCell>
-                  <TableCell>
-                    <TableHeaderTypography>Status</TableHeaderTypography>
-                  </TableCell>
-                  <TableCell>
-                    <TableHeaderTypography>Mark Obtained</TableHeaderTypography>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+      <MDBox>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
+          <Addeds />
+        </Box>
+
+        <DataGrid
+          rows={data}
+          columns={columns}
+          disableColumnMenu
+          disableColumnFilter
+          disableSelectionOnClick
+          disableRowSelectionOnClick
+          disableVirtualization
+        />
+      </MDBox>
     </DashboardLayout>
   );
 }
