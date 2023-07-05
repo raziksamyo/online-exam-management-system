@@ -1,0 +1,59 @@
+import React from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Typography,
+  Button,
+  IconButton,
+  DialogTitle,
+} from "@mui/material";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import MDBox from "components/MDBox";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import CloseIcon from "@mui/icons-material/Close";
+
+function ConfirmNotification(props) {
+  console.log("props", props);
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <MDBox>
+      <IconButton onClick={() => setIsOpen(true)} color="error">
+        <DeleteOutlineOutlinedIcon />
+      </IconButton>
+      <Dialog
+        onClose={() => setIsOpen(false)}
+        open={isOpen}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle sx={{ textAlign: "center", color: "orange", fontSize: "42px" }}>
+          <ReportProblemOutlinedIcon />
+        </DialogTitle>
+        <DialogContent>
+          <IconButton
+            sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+            onClick={() => setIsOpen(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6">Are you sure you want to delete this user?</Typography>
+          <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={() => setIsOpen(false)}>
+            No
+          </Button>
+          <Button variant="contained" color="error">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </MDBox>
+  );
+}
+// ConfirmNotification.propTypes = {
+//   Item: PropTypes.any.isRequired,
+//   RowsNo: PropTypes.any.isRequired,
+// };
+export default ConfirmNotification;
