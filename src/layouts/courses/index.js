@@ -1,49 +1,55 @@
 import { DataGrid } from "@mui/x-data-grid";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Delete from "dalog/couses/delete";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { Box } from "@mui/material";
+import Addeds from "dalog/couses/add";
+import Edit from "dalog/couses/edit";
+
+// import { makeStyles } from "@mui/styles";
+
+// const useStyles = makeStyles({
+//   headerCell: {
+//     fontSize: "14px",
+//     outline: "none",
+//   },
+// });
 
 const columns = [
   {
     field: "id",
     headerName: "#",
-    width: 70,
+    minWidth: 70,
   },
   {
     field: "teacherID",
     headerName: "TeacherID",
-    width: 150,
+    minWidth: 150,
   },
   {
     field: "CoursesId",
     headerName: "COURSESID",
-    width: 150,
+    minWidth: 150,
   },
   {
     field: "Titel",
     headerName: "TITLE",
-    width: 100,
+    minWidth: 100,
   },
   {
     field: "description",
     headerName: "Description",
-    width: 300,
+    minWidth: 300,
   },
   {
     field: "actions",
     headerName: "Actions",
-    width: 130,
+    minWidth: 130,
     renderCell: () => (
-      <MDBox>
-        <IconButton>
-          <DeleteIcon />
-        </IconButton>
-        <IconButton>
-          <EditIcon />
-        </IconButton>
+      <MDBox sx={{ display: "flex" }}>
+        <Delete />
+        <Edit />
       </MDBox>
     ),
   },
@@ -68,10 +74,25 @@ const data = [
 ];
 
 function Courses() {
+  // const classes = useStyles();
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <DataGrid rows={data} columns={columns} />
+      <MDBox>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
+          <Addeds />
+        </Box>
+
+        <DataGrid
+          rows={data}
+          columns={columns}
+          disableColumnMenu
+          disableColumnFilter
+          disableSelectionOnClick
+          disableRowSelectionOnClick
+          disableVirtualization
+        />
+      </MDBox>
     </DashboardLayout>
   );
 }
