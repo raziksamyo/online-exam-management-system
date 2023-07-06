@@ -1,7 +1,7 @@
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Grid, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import Add from "dalog/Teacher/addTeacher";
 import { DataGrid } from "@mui/x-data-grid";
 import Delete from "dalog/Teacher/delete";
@@ -86,9 +86,9 @@ function Teachers() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Box display="flex" justifyContent="flex-end">
+      <MDBox display="flex" justifyContent="flex-end">
         <Add />
-      </Box>
+      </MDBox>
       <Grid container>
         <Grid item xs={12}>
           <DataGrid
