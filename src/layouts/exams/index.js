@@ -4,28 +4,14 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box } from "@mui/material";
-import Addeds from "dalog/couses/add";
+import Add from "dalog/exam/add";
 import Edit from "dalog/couses/edit";
-
-// import { makeStyles } from "@mui/styles";
-
-// const useStyles = makeStyles({
-//   headerCell: {
-//     fontSize: "14px",
-//     outline: "none",
-//   },
-// });
 
 const columns = [
   {
     field: "id",
     headerName: "#",
     minWidth: 70,
-  },
-  {
-    field: "CoursesID",
-    headerName: "COURSESID",
-    minWidth: 150,
   },
   {
     field: "examTitle",
@@ -73,7 +59,6 @@ const columns = [
 const data = [
   {
     id: 1,
-    CoursesID: 12345506,
     examTitle: "nodejs",
     date: "30-07-2023",
     StartTime: "12pm",
@@ -83,7 +68,6 @@ const data = [
   },
   {
     id: 2,
-    CoursesID: 12345506,
     examTitle: "Reactjs",
     date: "30-07-2023",
     StartTime: "12pm",
@@ -101,7 +85,7 @@ function Exams() {
       <DashboardNavbar />
       <MDBox>
         <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
-          <Addeds />
+          <Add />
         </Box>
 
         <DataGrid
@@ -111,7 +95,11 @@ function Exams() {
           disableColumnFilter
           disableSelectionOnClick
           disableRowSelectionOnClick
-          disableVirtualization
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+              outline: "none !important",
+            },
+          }}
         />
       </MDBox>
     </DashboardLayout>

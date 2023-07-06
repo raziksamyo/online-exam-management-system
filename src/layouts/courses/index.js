@@ -3,19 +3,15 @@ import Delete from "dalog/couses/delete";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Box } from "@mui/material";
-import Addeds from "dalog/couses/add";
+import { Box, IconButton } from "@mui/material";
+import Add from "dalog/couses/add";
 import Edit from "dalog/couses/edit";
+import AddQuestion from "layouts/Addquestion";
 
-// import { makeStyles } from "@mui/styles";
-
-// const useStyles = makeStyles({
-//   headerCell: {
-//     fontSize: "14px",
-//     outline: "none",
-//   },
-// });
-
+let open = false;
+const handelClick = () => {
+  open = true;
+};
 const columns = [
   {
     field: "id",
@@ -25,11 +21,6 @@ const columns = [
   {
     field: "teacherID",
     headerName: "TeacherID",
-    minWidth: 150,
-  },
-  {
-    field: "CoursesId",
-    headerName: "COURSESID",
     minWidth: 150,
   },
   {
@@ -45,11 +36,12 @@ const columns = [
   {
     field: "actions",
     headerName: "Actions",
-    minWidth: 130,
+    minWidth: 150,
     renderCell: () => (
       <MDBox sx={{ display: "flex" }}>
         <Delete />
         <Edit />
+        <IconButton onClick={() => handelClick(open)}>addQuestion</IconButton>
       </MDBox>
     ),
   },
@@ -58,15 +50,13 @@ const columns = [
 const data = [
   {
     id: 1,
-    teacherID: 12345678061,
-    CoursesId: 12345506,
+    teacherID: "Rahul",
     Titel: "Nodejs",
     description: "Nodejs is a runtime environment in JavaScript",
   },
   {
     id: 2,
-    teacherID: 12345678062,
-    CoursesId: 12345507,
+    teacherID: "Mohit",
     Titel: "React",
     description: "React is a JavaScript library for building user interfaces",
   },
@@ -80,18 +70,28 @@ function Courses() {
       <DashboardNavbar />
       <MDBox>
         <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
-          <Addeds />
+          <Add />
         </Box>
-
-        <DataGrid
-          rows={data}
-          columns={columns}
-          disableColumnMenu
-          disableColumnFilter
-          disableSelectionOnClick
-          disableRowSelectionOnClick
-          disableVirtualization
-        />
+        {open ? (
+          <MDBox>
+            <AddQuestion />
+          </MDBox>
+        ) : (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            disableColumnMenu
+            disableColumnFilter
+            disableSelectionOnClick
+            disableRowSelectionOnClick
+            disableVirtualization
+            sx={{
+              "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+                outline: "none !important",
+              },
+            }}
+          />
+        )}
       </MDBox>
     </DashboardLayout>
   );
