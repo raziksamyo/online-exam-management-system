@@ -4,8 +4,7 @@ import Teachers from "layouts/teachers";
 import Students from "layouts/students";
 import Courses from "layouts/courses";
 import Exams from "layouts/exams";
-import Results from "layouts/results";
-
+import Results from "layouts/result";
 // @mui icons
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";

@@ -89,6 +89,11 @@ function Results() {
           disableSelectionOnClick
           disableRowSelectionOnClick
           disableVirtualization
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+              outline: "none !important",
+            },
+          }}
         />
       </MDBox>
     </DashboardLayout>

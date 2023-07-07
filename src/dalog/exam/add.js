@@ -6,10 +6,10 @@ import {
   TextField,
   DialogTitle,
   IconButton,
+  FormLabel,
   MenuItem,
   Select,
   FormControl,
-  InputLabel,
 } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -52,15 +52,15 @@ function Add() {
           "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
         }}
       >
-        Add Courses
+        AddExam
       </MDButton>
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 850, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Courses</DialogTitle>
+        <DialogTitle sx={{ textAlign: "center" }}>Add Examination</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -70,38 +70,50 @@ function Add() {
               <CloseIcon />
             </IconButton>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-helper-label">TeacherName</InputLabel>
+                  <FormLabel>CoursesName</FormLabel>
                   <Select
-                    {...register("teacherId", { required: "PLease selected Teacher Name" })}
-                    error={errors?.teacherId}
-                    helperText={errors?.teacherId?.message}
+                    {...register("studentId", { required: "PLease selected Stundent Name" })}
+                    error={errors?.studentId}
+                    helperText={errors?.studentId?.message}
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    label="TeacherName"
                     sx={{ padding: "12px" }}
                   >
-                    <MenuItem value="Rahul">Rahul</MenuItem>
-                    <MenuItem value="Varun">Varun</MenuItem>
-                    <MenuItem value="Mohit">Mohit</MenuItem>
+                    <MenuItem value="Nodejs">Nodejs</MenuItem>
+                    <MenuItem>Reactjs</MenuItem>
+                    <MenuItem>Javascript</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
+                <FormLabel>Exam TITLE</FormLabel>
                 <TextField
                   fullWidth
-                  label="TITLE"
-                  type="text"
-                  {...register("title", { required: "Please enter Title " })}
+                  {...register("examTitle", { required: "Please enter examination name" })}
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  error={!!errors.title}
-                  helperText={errors.title?.message}
+                  helperText={errors?.examTitle?.message}
+                  error={errors?.examTitle}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <FormLabel>ExamDate</FormLabel>
+                <TextField
+                  fullWidth
+                  type="date"
+                  {...register("date", { required: "Please enter date " })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value);
+                  }}
+                  error={!!errors.date}
+                  helperText={errors?.date?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+                <FormLabel>Description</FormLabel>
                 <TextField
                   fullWidth
                   label="Description"
@@ -111,7 +123,7 @@ function Add() {
                     setValue(e.target.name, e.target.value);
                   }}
                   error={!!errors.description}
-                  helperText={errors.title?.description}
+                  helperText={errors?.description?.message}
                 />
               </Grid>
             </Grid>
