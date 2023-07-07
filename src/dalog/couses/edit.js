@@ -1,4 +1,15 @@
-import { Grid, IconButton, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  TextField,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+} from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
@@ -18,7 +29,15 @@ function Edit() {
   };
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)} color="success">
+      <IconButton
+        onClick={() => setOpen(true)}
+        color="success"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(96, 233, 101, 0.18)",
+          },
+        }}
+      >
         <BorderColorOutlinedIcon />
       </IconButton>
       <Dialog
@@ -32,101 +51,45 @@ function Edit() {
           <DialogContent>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-helper-label">TeacherName</InputLabel>
+                  <Select
+                    {...register("teacherId", { required: "PLease selected Teacher Name" })}
+                    error={errors?.teacherId}
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    sx={{ padding: "12px" }}
+                    label="TeacherName"
+                  >
+                    <MenuItem value="Rahul">Rahul</MenuItem>
+                    <MenuItem value="Varun">Varun</MenuItem>
+                    <MenuItem value="Mohit">Mohit</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
-                  {...register("name", { required: "Please enter a name" })}
+                  {...register("Title", { required: "Please enter Title " })}
                   fullWidth
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  label="Name"
-                  defaultValue="Mohit"
-                  helperText={errors.name?.message}
-                  error={errors.name}
+                  label="TITLE"
+                  helperText={errors.Title?.message}
+                  error={errors?.Title}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  {...register("Email", { required: "Please enter email id " })}
+                  {...register("Description", { required: "Please enter a Description" })}
                   fullWidth
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Email ID"
-                  defaultValue="mg08312@gmail.com"
-                  helperText={errors.Email?.message}
-                  error={errors?.Email}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Address", { required: "Please enter a address" })}
-                  fullWidth
-                  type="text"
-                  defaultValue="162 ambey nagar Sukhilya"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Address"
-                  helperText={errors.Address?.message}
-                  error={errors.Address}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Qualification", { required: "Please enter a qualificaton" })}
-                  fullWidth
-                  defaultValue="BTech(Computer Science )"
                   type="text"
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  label="Qualification"
-                  helperText={errors?.Qualification?.message}
-                  error={errors.Qualification}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("MobileNo", { required: "Please enter a mobile No" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  defaultValue="9039512378"
-                  label="Contact Number"
-                  helperText={errors?.MobileNo?.message}
-                  error={errors?.MobileNo}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("PinCode", { required: "Please enter Pincode" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Pincode"
-                  defaultValue="452010"
-                  helperText={errors?.PinCode?.message}
-                  error={errors?.PinCode}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("JoinDate", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="JoinDate"
-                  defaultValue="29/06/2023"
-                  helperText={errors?.JoinDate?.message}
-                  error={errors?.JoinDate}
+                  label="Description"
+                  helperText={errors.Description?.message}
+                  error={errors?.Description}
                 />
               </Grid>
             </Grid>

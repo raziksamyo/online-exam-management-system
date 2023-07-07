@@ -14,7 +14,15 @@ function Delete() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setIsOpen(true)} color="error">
+      <IconButton
+        onClick={() => setIsOpen(true)}
+        color="error"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(255, 0, 0, 0.1)",
+          },
+        }}
+      >
         <DeleteIcon />
       </IconButton>
       <Dialog
@@ -28,7 +36,7 @@ function Delete() {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setIsOpen(false)}>
+          <Button variant="contained" onClick={() => setIsOpen(false)} color="error">
             No
           </Button>
           <Button variant="contained" color="error">
