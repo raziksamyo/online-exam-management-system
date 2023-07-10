@@ -1,4 +1,4 @@
-import { Grid, Dialog, DialogContent, IconButton, Card, Box, Typography } from "@mui/material";
+import { Grid, Dialog, IconButton, Card, Box, Typography } from "@mui/material";
 import MDBox from "components/MDBox";
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
@@ -28,83 +28,73 @@ function View() {
           "& .MuiPaper-root": { width: "100%", alignItems: "center" },
         }}
       >
-        <DialogContent sx={{ width: "100%", bgcolor: "#f0f2f5" }}>
-          <Card>
-            <Grid container sx={{ p: 2 }}>
-              <Grid
-                container
-                item
-                justifyContent="center"
-                alignItems="center"
-                xs={12}
-                sx={{ p: 2 }}
-              >
-                <img
-                  src={profileImage}
-                  alt="mediaphoto"
-                  style={{
-                    borderRadius: "50%",
-                    width: "200px",
-                    height: "200px",
-                  }}
-                />
-              </Grid>
-              <Grid xs={12}>
-                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                  <Grid xs={5} sx={{ pb: 1 }}>
-                    <Typography>
-                      <b>Name:</b>
-                      Varun Sharma
-                    </Typography>
-                  </Grid>
-                  <Grid xs={5} sx={{ pb: 1 }}>
-                    <Typography>
-                      <b>MobileNo:</b>
-                      9012322891
-                    </Typography>
-                  </Grid>
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                  <Grid xs={5} sx={{ pb: 1 }}>
-                    <Typography>
-                      <b>Gender:</b>
-                      Male
-                    </Typography>
-                  </Grid>
-                  <Grid xs={5} sx={{ pb: 2 }}>
-                    <Typography>
-                      <b>Pincode:</b>
-                      452010
-                    </Typography>
-                  </Grid>
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                  <Grid xs={5} sx={{ pb: 1 }}>
-                    <Typography>
-                      <b>Email:</b>
-                      varunsharma@gmail.com
-                    </Typography>
-                  </Grid>
-                  <Grid xs={5} sx={{ pb: 1 }}>
-                    <Typography>
-                      <b>DOB:</b>
-                      19-06-2023
-                    </Typography>
-                  </Grid>
-                </Box>
-
-                <Box sx={{ display: "flex" }}>
-                  <Grid xs={10} sx={{ pb: 1, ml: 2 }}>
-                    <Typography>
-                      <b>Address:</b>
-                      162 Ambey nagar sukhilyasajdicwqbfj WJKDSAKJC,MES FKJB
-                    </Typography>
-                  </Grid>
-                </Box>
-              </Grid>
+        <Card>
+          <Typography variant="h2" sx={{ mt: 3 }}>
+            Student Details
+          </Typography>
+          <Grid container sx={{ p: 2 }}>
+            <Grid container item justifyContent="center" alignItems="center" xs={12} sx={{ p: 2 }}>
+              <img
+                src={profileImage}
+                alt="mediaphoto"
+                style={{
+                  borderRadius: "50%",
+                  width: "200px",
+                  height: "200px",
+                }}
+              />
             </Grid>
-          </Card>
-        </DialogContent>
+            <Grid xs={12}>
+              <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
+                <Grid xs={5} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    Name :<Typography sx={{ fontWeight: 200 }}>Varun Sharma</Typography>
+                  </Typography>
+                </Grid>
+                <Grid xs={3} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    MobileNo :<Typography sx={{ fontWeight: 200 }}>9012322891</Typography>
+                  </Typography>
+                </Grid>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
+                <Grid xs={5} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    Gender :<Typography sx={{ fontWeight: 200 }}>Male</Typography>
+                  </Typography>
+                </Grid>
+                <Grid xs={3} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    Education :<Typography sx={{ fontWeight: 200 }}>BCA</Typography>
+                  </Typography>
+                </Grid>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
+                <Grid xs={5} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    Email :<Typography sx={{ fontWeight: 200 }}>varunsharma@gmail.com</Typography>
+                  </Typography>
+                </Grid>
+                <Grid xs={3} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    DOB :<Typography sx={{ fontWeight: 200 }}>19-06-2023</Typography>
+                  </Typography>
+                </Grid>
+              </Box>
+
+              <Box sx={{ display: "flex", ml: 5 }}>
+                <Grid xs={12} sx={{ pb: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    Address :
+                    <Typography sx={{ fontWeight: 200 }}>
+                      96 , A Green Park CoLony Dhar Road Indore , Indore (M.P)
+                    </Typography>
+                  </Typography>
+                </Grid>
+              </Box>
+            </Grid>
+          </Grid>
+        </Card>
       </Dialog>
     </MDBox>
   );
