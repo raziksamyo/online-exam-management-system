@@ -2,7 +2,7 @@ import { Grid, Dialog, DialogContent, IconButton, Card, Box, Typography } from "
 import MDBox from "components/MDBox";
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import profileImage from "../../assets/Images/profile-icon.png";
+import profileImage from "../../assets/Images/profile-icon.jpg";
 
 function View() {
   const [open, setOpen] = useState(false);
@@ -67,8 +67,8 @@ function View() {
                 <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                   <Grid xs={5} sx={{ pb: 1 }}>
                     <Typography>
-                      <b>Qualification:</b>
-                      BCA, MCA, B.Tech...
+                      <b>Gender:</b>
+                      Male
                     </Typography>
                   </Grid>
                   <Grid xs={5} sx={{ pb: 2 }}>
@@ -81,13 +81,13 @@ function View() {
                 <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                   <Grid xs={5} sx={{ pb: 1 }}>
                     <Typography>
-                      <b>Gmail:</b>
+                      <b>Email:</b>
                       varunsharma@gmail.com
                     </Typography>
                   </Grid>
                   <Grid xs={5} sx={{ pb: 1 }}>
                     <Typography>
-                      <b>JoinDate:</b>
+                      <b>DOB:</b>
                       19-06-2023
                     </Typography>
                   </Grid>

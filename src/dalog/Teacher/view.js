@@ -67,22 +67,35 @@ function View() {
                 <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                   <Grid xs={5} sx={{ pb: 2 }}>
                     <Typography>
-                      <b>Qualification:</b>
-                      BCA, MCA, B.Tech...
+                      <b>Email:</b>
+                      varunsharma@gmail.com
                     </Typography>
                   </Grid>
                   <Grid xs={5} sx={{ pb: 2 }}>
                     <Typography>
-                      <b>Pincode:</b>
-                      452010
+                      <b>DOB:</b>
+                      04-08-2000
+                    </Typography>
+                  </Grid>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Gender:</b>
+                      Male
+                    </Typography>
+                  </Grid>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Experience:</b>2 yrs
                     </Typography>
                   </Grid>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                   <Grid xs={5} sx={{ pb: 1 }}>
                     <Typography>
-                      <b>Gmail:</b>
-                      varunsharma@gmail.com
+                      <b>Qualification:</b>
+                      BCA, MCA, B.Tech...
                     </Typography>
                   </Grid>
                   <Grid xs={5} sx={{ pb: 1 }}>

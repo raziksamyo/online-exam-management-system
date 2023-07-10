@@ -28,7 +28,6 @@ const columns = [
   { flex: 0.25, field: "Email", headerName: "Email", minWidth: 200 },
   { flex: 0.17, field: "Gender", headerName: "Gender", minWidth: 120 },
   { flex: 0.17, field: "MobileNo", headerName: "Mobile", minWidth: 200 },
-  { flex: 0.18, field: "joinDated", headerName: "Joining Date", width: 200 },
   {
     flex: 0.14,
     field: "action",
@@ -51,7 +50,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
   {
@@ -60,7 +58,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
   {
@@ -69,7 +66,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
   {
@@ -78,7 +74,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
   {
@@ -87,7 +82,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
   {
@@ -96,7 +90,6 @@ const rows = [
     Email: "johndoe@example.com",
     Gender: "Male",
     MobileNo: 9111112345,
-    joinDated: "2023-06-01",
     actions: "Edit",
   },
 ];
