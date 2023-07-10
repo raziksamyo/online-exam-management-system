@@ -1,13 +1,13 @@
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Add from "dalog/Teacher/addTeacher";
 import { DataGrid } from "@mui/x-data-grid";
 import Delete from "dalog/Teacher/delete";
 import Edit from "dalog/Teacher/edit";
 import View from "dalog/Teacher/view";
-import MDBox from "components/MDBox";
+import Search from "components/Search/Search";
 
 const columns = [
   { flex: 0.01, field: "id", headerName: "#", minWidth: 100 },
@@ -22,11 +22,11 @@ const columns = [
     headerName: "Action",
     width: 350,
     renderCell: () => (
-      <MDBox sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }}>
         <View />
         <Edit />
         <Delete />
-      </MDBox>
+      </Box>
     ),
   },
 ];
@@ -64,45 +64,35 @@ const rows = [
     MobileNo: 9111112345,
     joinDated: "2023-06-01",
   },
-  {
-    id: 5,
-    Name: "Varun Sharma",
-    Email: "johndoe@example.com",
-    Gender: "Male",
-    MobileNo: 9111112345,
-    joinDated: "2023-06-01",
-  },
-  {
-    id: 6,
-    Name: "Varun Sharma",
-    Email: "johndoe@example.com",
-    Gender: "Male",
-    MobileNo: 9111112345,
-    joinDated: "2023-06-01",
-  },
 ];
 function Teachers() {
-  // const [open, setOpen] = React.useState(false);
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox display="flex" justifyContent="flex-end">
-        <Add />
-      </MDBox>
-      <Grid container>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box>
+          <Search />
+        </Box>
+        <Box>
+          <Add />
+        </Box>
+      </Box>
+      <Grid container spacing={6}>
         <Grid item xs={12}>
           <DataGrid
-            disableRowSelectionOnClick
+            // paginationMode='server'
             rows={rows}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
+            disableSelectionOnClick
+            disableColumnMenu
+            disableColumnFilter
+            disableColumnSelector
+            disableRowSelectionOnClick
+            sx={{
+              "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+                outline: "none !important",
               },
             }}
-            pageSizeOptions={[5]}
           />
         </Grid>
       </Grid>
