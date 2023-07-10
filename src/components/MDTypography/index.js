@@ -45,6 +45,7 @@ MDTypography.defaultProps = {
   verticalAlign: "unset",
   textGradient: false,
   opacity: 1,
+  height: 50,
 };
 
 // Typechecking props for the MDTypography
@@ -78,6 +79,7 @@ MDTypography.propTypes = {
   textGradient: PropTypes.bool,
   children: PropTypes.node.isRequired,
   opacity: PropTypes.number,
+  height: "50",
 };
 
 export default MDTypography;

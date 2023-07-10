@@ -21,13 +21,14 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-// import Icon from "@mui/material/Icon";
+import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
-// import MDBox from "components/MDBox";
+import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
 import Sidenav from "examples/Sidenav";
+import Configurator from "examples/Configurator";
 
 // Material Dashboard 2 React themes
 import theme from "assets/theme";
@@ -39,11 +40,7 @@ import themeDark from "assets/theme-dark";
 import routes from "routes";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController, setMiniSidenav } from "context";
-
-// Images
-// import brandWhite from "assets/images/logo-ct.png";
-// import brandDark from "assets/images/logo-ct-dark.png";
+import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -51,7 +48,7 @@ export default function App() {
     miniSidenav,
     direction,
     layout,
-    // openConfigurator,
+    openConfigurator,
     sidenavColor,
     // transparentSidenav,
     // whiteSidenav,
@@ -77,7 +74,7 @@ export default function App() {
   };
 
   // Change the openConfigurator state
-  // const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -103,29 +100,29 @@ export default function App() {
       return null;
     });
 
-  // const configsButton = (
-  //   <MDBox
-  //     display="flex"
-  //     justifyContent="center"
-  //     alignItems="center"
-  //     width="3.25rem"
-  //     height="3.25rem"
-  //     bgColor="white"
-  //     shadow="sm"
-  //     borderRadius="50%"
-  //     position="fixed"
-  //     right="2rem"
-  //     bottom="2rem"
-  //     zIndex={99}
-  //     color="dark"
-  //     sx={{ cursor: "pointer" }}
-  //     onClick={handleConfiguratorOpen}
-  //   >
-  //     <Icon fontSize="small" color="inherit">
-  //       settings
-  //     </Icon>
-  //   </MDBox>
-  // );
+  const configsButton = (
+    <MDBox
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      width="3.25rem"
+      height="3.25rem"
+      bgColor="white"
+      shadow="sm"
+      borderRadius="50%"
+      position="fixed"
+      right="2rem"
+      bottom="2rem"
+      zIndex={99}
+      color="dark"
+      sx={{ cursor: "pointer" }}
+      onClick={handleConfiguratorOpen}
+    >
+      <Icon fontSize="small" color="inherit">
+        settings
+      </Icon>
+    </MDBox>
+  );
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
@@ -140,7 +137,8 @@ export default function App() {
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          {/* {configsButton} */}
+          <Configurator />
+          {configsButton}
         </>
       )}
       <Routes>

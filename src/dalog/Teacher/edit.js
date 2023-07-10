@@ -27,7 +27,15 @@ function Edit() {
   };
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)} color="success">
+      <IconButton
+        onClick={() => setOpen(true)}
+        color="success"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(96, 233, 101, 0.18)",
+          },
+        }}
+      >
         <BorderColorOutlinedIcon />
       </IconButton>
       <Dialog

@@ -1,14 +1,22 @@
-import { Grid, Dialog, DialogContent, IconButton, Card } from "@mui/material";
-import MDTypography from "components/MDTypography";
+import { Grid, Dialog, DialogContent, IconButton, Card, Box, Typography } from "@mui/material";
 import MDBox from "components/MDBox";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import { useState } from "react";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import profileImage from "../../assets/Images/pro.jpg";
 
 function View() {
   const [open, setOpen] = useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setOpen(true)} color="info">
+      <IconButton
+        onClick={() => setOpen(true)}
+        color="info"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(178, 205, 241, 0.62)",
+          },
+        }}
+      >
         <RemoveRedEyeOutlinedIcon />
       </IconButton>
       <Dialog
@@ -20,26 +28,92 @@ function View() {
           "& .MuiPaper-root": { width: "100%", alignItems: "center" },
         }}
       >
-        <DialogContent sx={{ width: "100%" }}>
-          <Card sx={{ width: "100%" }}>
-            <Grid container>
-              <Grid item xs={5}>
+        <DialogContent sx={{ width: "100%", bgcolor: "#f0f2f5" }}>
+          <Card>
+            <Grid container sx={{ p: 2 }}>
+              <Grid
+                container
+                item
+                justifyContent="center"
+                alignItems="center"
+                xs={12}
+                sx={{ p: 2 }}
+              >
                 <img
-                  style={{ width: "90%", height: "150px" }}
-                  src="https://media.istockphoto.com/id/1311423416/photo/home-interior-background-with-green-sofa-table-and-decor-in-living-room.jpg?s=1024x1024&w=is&k=20&c=GJWlfgsBKM1hSVLGIK0QOgnHzYXV6JVDGxdC-ry_gxI="
+                  src={profileImage}
                   alt="mediaphoto"
+                  style={{
+                    borderRadius: "50%",
+                    width: "200px",
+                    height: "200px",
+                  }}
                 />
-                <MDTypography>ID:111</MDTypography>
-                <MDTypography>Name:Varun Sharma</MDTypography>
-                <MDTypography>MobileNo:9012322891</MDTypography>
               </Grid>
-              <Grid item xs={7}>
-                <MDTypography>Address:162 Ambey nagar sukhilya</MDTypography>
-                <MDTypography>Pincode:452010</MDTypography>
-                <MDTypography>Gmail:varunsharma@gmail.com</MDTypography>
-                <MDTypography>Qualification:B.Tech(Computer)</MDTypography>
-                <MDTypography>JoinDate:19-06-2023</MDTypography>
-                <MDTypography>Password:Mohit@123</MDTypography>
+              <Grid xs={12}>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Name:</b>
+                      Varun Sharma
+                    </Typography>
+                  </Grid>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>MobileNo:</b>
+                      9012322891
+                    </Typography>
+                  </Grid>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Email:</b>
+                      varunsharma@gmail.com
+                    </Typography>
+                  </Grid>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>DOB:</b>
+                      04-08-2000
+                    </Typography>
+                  </Grid>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Gender:</b>
+                      Male
+                    </Typography>
+                  </Grid>
+                  <Grid xs={5} sx={{ pb: 2 }}>
+                    <Typography>
+                      <b>Experience:</b>2 yrs
+                    </Typography>
+                  </Grid>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                  <Grid xs={5} sx={{ pb: 1 }}>
+                    <Typography>
+                      <b>Qualification:</b>
+                      BCA, MCA, B.Tech...
+                    </Typography>
+                  </Grid>
+                  <Grid xs={5} sx={{ pb: 1 }}>
+                    <Typography>
+                      <b>JoinDate:</b>
+                      19-06-2023
+                    </Typography>
+                  </Grid>
+                </Box>
+
+                <Box sx={{ display: "flex" }}>
+                  <Grid xs={10} sx={{ pb: 1, ml: 2 }}>
+                    <Typography>
+                      <b>Address:</b>
+                      162 Ambey nagar sukhilyasajdicwqbfj WJKDSAKJC,MES FKJB
+                    </Typography>
+                  </Grid>
+                </Box>
               </Grid>
             </Grid>
           </Card>

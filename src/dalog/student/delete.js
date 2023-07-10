@@ -7,11 +7,11 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MDBox from "components/MDBox";
 import PropTypes from "prop-types";
 
-function ConfirmNotification({ row, index }) {
+function DeleteStudent({ row, index }) {
   //   console.log("props", index);
   //   console.log("Rows", row);
   console.log("props", row);
@@ -19,8 +19,16 @@ function ConfirmNotification({ row, index }) {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
-      <IconButton onClick={() => setIsOpen(true)}>
-        <DeleteIcon />
+      <IconButton
+        onClick={() => setIsOpen(true)}
+        color="error"
+        sx={{
+          "&:hover": {
+            backgroundColor: "rgba(255, 0, 0, 0.1)",
+          },
+        }}
+      >
+        <DeleteOutlineOutlinedIcon />
       </IconButton>
       <Dialog
         onClose={() => setIsOpen(false)}
@@ -45,7 +53,7 @@ function ConfirmNotification({ row, index }) {
   );
 }
 
-ConfirmNotification.propTypes = {
+DeleteStudent.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.number.isRequired,
     Name: PropTypes.string.isRequired,
@@ -57,4 +65,4 @@ ConfirmNotification.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-export default ConfirmNotification;
+export default DeleteStudent;
