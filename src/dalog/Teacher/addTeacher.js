@@ -37,13 +37,11 @@ function Add() {
 
   const [fields, setFields] = useState([{ id: 1, value: "" }]);
   const [nextId, setNextId] = useState(2);
-  const [removeEnable, setRemoveEnable] = useState(0);
 
   const handleAddField = () => {
     const newField = { id: nextId, value: "" };
     setFields([...fields, newField]);
     setNextId(nextId + 1);
-    setRemoveEnable(removeEnable + 1);
   };
 
   const handleFieldChange = (id, event) => {
@@ -217,12 +215,10 @@ function Add() {
                   <Box sx={{ display: "flex" }}>
                     <Box key={field.id}>
                       <TextField
-                        // fullWidth
                         sx={{
                           width: { sm: 200, md: 300, lg: 560 },
                           mb: 2,
                         }}
-                        // sx={{ mb: 2 }}
                         type="text"
                         value={field.value}
                         label="Qualifications"
