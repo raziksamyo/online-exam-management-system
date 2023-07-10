@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   Grid,
   Dialog,
@@ -116,14 +117,14 @@ function Add() {
                 <FormLabel>Description</FormLabel>
                 <TextField
                   fullWidth
-                  label="Description"
+                  label="TOTALQuestion"
                   type="text"
-                  {...register("description", { required: "Please enter Description " })}
+                  {...register("totalquestion", { required: "Please enter Description " })}
                   onChange={(e) => {
                     setValue(e.target.name, e.target.value);
                   }}
-                  error={!!errors.description}
-                  helperText={errors?.description?.message}
+                  error={!!errors.totalquestion}
+                  helperText={errors?.totalquestion?.message}
                 />
               </Grid>
             </Grid>

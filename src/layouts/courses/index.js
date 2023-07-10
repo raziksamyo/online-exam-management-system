@@ -9,7 +9,9 @@ import Edit from "dalog/couses/edit";
 import { useState } from "react";
 // import AddQuestion from "layouts/Addquestion";
 import { FileDocumentEdit } from "mdi-material-ui";
-import AddQuestion from "dalog/couses/addquestion";
+import AddQuestion from "dalog/question/addquestion";
+import Edits from "dalog/question/edit";
+import Deletes from "dalog/question/delete";
 
 const Columns = [
   {
@@ -20,7 +22,18 @@ const Columns = [
   {
     field: "Question",
     headerName: "Question",
+    minWidth: 300,
+  },
+  {
+    filed: "action",
+    headerName: "Action",
     minWidth: 200,
+    renderCell: () => (
+      <MDBox sx={{ display: "flex" }}>
+        <Edits />
+        <Deletes />
+      </MDBox>
+    ),
   },
 ];
 
@@ -28,10 +41,12 @@ const Rows = [
   {
     id: 1,
     Question: "Node js as a runtime enivornment",
+    action: "edit",
   },
   {
     id: 2,
     Question: "Node js as a runtime enivornment",
+    action: "edit",
   },
 ];
 function Courses() {
