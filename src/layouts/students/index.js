@@ -1,26 +1,15 @@
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import * as React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-// import ConfirmNotification from "dalog/student/delete";
 import Add from "dalog/student/addStudent";
 import Delete from "dalog/student/delete";
 import Edit from "dalog/student/edit";
 import View from "dalog/student/view";
-
-// const TableHeaderTypography = styled(MDTypography)(() => ({
-//   fontWeight: "bold",
-//   fontSize: "1rem",
-//   letterSpacing: "0.17px",
-//   textAlign: "center",
-// }));
-// const WhiteIconButton = styled(IconButton)({
-//   backgroundColor: "white",
-// });
+import Search from "components/Search/Search";
 
 const columns = [
   { flex: 0.01, field: "id", headerName: "#", minWidth: 100 },
@@ -94,21 +83,28 @@ const rows = [
   },
 ];
 function Students() {
-  // const [open, setOpen] = React.useState(false);
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox display="flex" justifyContent="flex-end">
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box>
+          <Search />
+        </Box>
         <Add />
-      </MDBox>
+      </Box>
       <Grid container>
         <Grid item xs={12}>
           <DataGrid
-            // disableColumnMenu
-            // disableColumnFilter
-            // disableColumnSelector
+            disableColumnMenu
+            disableColumnFilter
+            disableColumnSelector
             disableRowSelectionOnClick
-            // disableSelectionOnClick
+            disableSelectionOnClick
+            sx={{
+              "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+                outline: "none !important",
+              },
+            }}
             rows={rows}
             columns={columns}
             initialState={{
