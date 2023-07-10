@@ -64,22 +64,6 @@ const rows = [
     MobileNo: 9111112345,
     joinDated: "2023-06-01",
   },
-  {
-    id: 5,
-    Name: "Varun Sharma",
-    Email: "johndoe@example.com",
-    Gender: "Male",
-    MobileNo: 9111112345,
-    joinDated: "2023-06-01",
-  },
-  {
-    id: 6,
-    Name: "Varun Sharma",
-    Email: "johndoe@example.com",
-    Gender: "Male",
-    MobileNo: 9111112345,
-    joinDated: "2023-06-01",
-  },
 ];
 function Teachers() {
   return (
