@@ -43,7 +43,7 @@ function Add() {
           backgroundColor: "#308AEC",
           color: "#FFFFFF",
           fontWeight: "normal !important",
-          fontSize: "10px",
+          fontSize: "12px",
           padding: "1px 10px",
           "&:hover": {
             backgroundColor: "#32AADD",

@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Typography,
-  Button,
-  IconButton,
-} from "@mui/material";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { Dialog, DialogActions, DialogContent, Typography, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 
-function Delete() {
+function Deletes() {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
@@ -24,7 +17,7 @@ function Delete() {
           },
         }}
       >
-        <DeleteOutlineOutlinedIcon />
+        <DeleteIcon />
       </IconButton>
       <Dialog
         onClose={() => setIsOpen(false)}
@@ -37,9 +30,9 @@ function Delete() {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setIsOpen(false)} color="error">
+          <MDButton variant="contained" onClick={() => setIsOpen(false)}>
             No
-          </Button>
+          </MDButton>
           <MDButton variant="contained" color="error">
             Yes
           </MDButton>
@@ -49,4 +42,4 @@ function Delete() {
   );
 }
 
-export default Delete;
+export default Deletes;

@@ -5,6 +5,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box } from "@mui/material";
 import Addeds from "dalog/Result/add";
+import Search from "components/Search/Search";
 
 // import { makeStyles } from "@mui/styles";
 
@@ -77,7 +78,10 @@ function Results() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox>
-        <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+          <Box>
+            <Search />
+          </Box>
           <Addeds />
         </Box>
 

@@ -7,9 +7,14 @@ import { Box, IconButton } from "@mui/material";
 import Add from "dalog/couses/add";
 import Edit from "dalog/couses/edit";
 import { useState } from "react";
+import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
-import { FileDocumentEdit } from "mdi-material-ui";
-import AddQuestion from "dalog/couses/addquestion";
+import AddQuestion from "dalog/question/addquestion";
+import Edits from "dalog/question/edit";
+import Deletes from "dalog/question/delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Search from "components/Search/Search";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 const Columns = [
   {
@@ -20,7 +25,18 @@ const Columns = [
   {
     field: "Question",
     headerName: "Question",
+    minWidth: 300,
+  },
+  {
+    filed: "action",
+    headerName: "Action",
     minWidth: 200,
+    renderCell: () => (
+      <MDBox sx={{ display: "flex" }}>
+        <Edits />
+        <Deletes />
+      </MDBox>
+    ),
   },
 ];
 
@@ -28,10 +44,12 @@ const Rows = [
   {
     id: 1,
     Question: "Node js as a runtime enivornment",
+    action: "edit",
   },
   {
     id: 2,
     Question: "Node js as a runtime enivornment",
+    action: "edit",
   },
 ];
 function Courses() {
@@ -70,22 +88,14 @@ function Courses() {
           <Edit />
           <IconButton
             onClick={handelClick}
-            startIcon={<FileDocumentEdit />}
+            color="info"
             sx={{
-              borderRadius: "10px",
-              backgroundColor: "#308AEC",
-              color: "#FFFFFF",
-              fontWeight: "normal !important",
-              fontSize: "10px",
-              padding: "1px 10px",
               "&:hover": {
-                backgroundColor: "#32AADD",
-                color: "#FFFFFF",
+                backgroundColor: "rgba(96, 233, 101, 0.18)",
               },
-              "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
             }}
           >
-            AddQuestion
+            <QuizIcon />
           </IconButton>
         </MDBox>
       ),
@@ -115,16 +125,16 @@ function Courses() {
         {open ? (
           <MDBox>
             <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
-              <IconButton
+              <MDButton
                 onClick={handelClick}
-                startIcon={<FileDocumentEdit />}
+                startIcon={<ArrowBackIcon />}
                 sx={{
                   borderRadius: "10px",
                   backgroundColor: "#308AEC",
                   color: "#FFFFFF",
                   fontWeight: "normal !important",
-                  fontSize: "14px",
-                  padding: "15px 20px",
+                  fontSize: "12px",
+                  padding: "1px 10px",
                   "&:hover": {
                     backgroundColor: "#32AADD",
                     color: "#FFFFFF",
@@ -132,8 +142,8 @@ function Courses() {
                   "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
                 }}
               >
-                BackCourses
-              </IconButton>
+                BACK COURSES
+              </MDButton>
               <AddQuestion />
             </Box>
             <DataGrid
@@ -152,7 +162,10 @@ function Courses() {
           </MDBox>
         ) : (
           <Box>
-            <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
+            <Box sx={{ display: "flex", marginBottom: "5px", justifyContent: "space-between" }}>
+              <Box>
+                <Search />
+              </Box>
               <Add />
             </Box>
             <DataGrid
