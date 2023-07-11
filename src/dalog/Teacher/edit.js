@@ -12,10 +12,15 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
     handleSubmit,
     register,
@@ -153,17 +158,25 @@ function Edit() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("JoinDate", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  defaultValue="29/06/2023"
-                  helperText={errors?.JoinDate?.message}
-                  error={errors?.JoinDate}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    sx={{ width: "100%" }}
+                    defaultValue={dayjs(selectedDate)}
+                    label="Select a date"
+                    {...register("date", { required: "Date is required" })}
+                    onChange={(date) => {
+                      setValue("date", date, { shouldValidate: true });
+                      setSelectedDate(date);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors.date?.message}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField

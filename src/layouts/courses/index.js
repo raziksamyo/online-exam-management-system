@@ -1,5 +1,4 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Delete from "dalog/couses/delete";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -11,7 +10,7 @@ import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
 import AddQuestion from "dalog/question/addquestion";
 import Edits from "dalog/question/edit";
-import Deletes from "dalog/question/delete";
+import Delete from "dalog/Teacher/delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Search from "components/Search/Search";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -34,7 +33,7 @@ const Columns = [
     renderCell: () => (
       <MDBox sx={{ display: "flex" }}>
         <Edits />
-        <Deletes />
+        <Delete />
       </MDBox>
     ),
   },

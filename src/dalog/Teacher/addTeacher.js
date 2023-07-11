@@ -15,10 +15,14 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
 import MDBox from "components/MDBox";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 function Add() {
   const [open, setOpen] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
     handleSubmit,
     register,
@@ -28,6 +32,7 @@ function Add() {
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
 
   const handleClose = () => {
@@ -171,16 +176,25 @@ function Add() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("JoinDate", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  helperText={errors?.JoinDate?.message}
-                  error={errors?.JoinDate}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    sx={{ width: "100%" }}
+                    defaultValue={dayjs(selectedDate)}
+                    label="Select a date"
+                    {...register("date", { required: "Date is required" })}
+                    onChange={(date) => {
+                      setValue("date", date, { shouldValidate: true });
+                      setSelectedDate(date);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors.date?.message}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -193,13 +207,23 @@ function Add() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  type="Date"
-                  {...register("dob", { required: "Please enter dob " })}
-                  error={!!errors.dob}
-                  helperText={errors.dob?.message}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    sx={{ width: "100%" }}
+                    label="Select a DOB"
+                    {...register("dobdate", { required: "Date is required" })}
+                    onChange={(date) => {
+                      setValue("dobdate", date, { shouldValidate: true });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.dobdate}
+                        helperText={errors.dobdate?.message}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -237,7 +261,7 @@ function Add() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={handleClose}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>

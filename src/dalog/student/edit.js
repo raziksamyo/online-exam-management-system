@@ -12,9 +12,15 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
     handleSubmit,
     register,
@@ -51,11 +57,15 @@ function Edit() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
+        <Typography varaint="h5">Edit student Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h2" textAlign="center">
-            Edit
-          </Typography>
           <DialogContent>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -130,18 +140,24 @@ function Edit() {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("dob", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="DOB"
-                  defaultValue="29/06/2023"
-                  helperText={errors?.dob?.message}
-                  error={errors?.dob}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    defaultValue={dayjs(selectedDate)}
+                    label="Select a date"
+                    {...register("date", { required: "Date is required" })}
+                    onChange={(date) => {
+                      setValue("date", date, { shouldValidate: true });
+                      setSelectedDate(date);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors.date?.message}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField

@@ -7,12 +7,17 @@ import {
   Button,
   Box,
   Typography,
+  IconButton,
 } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FileDocumentEdit } from "mdi-material-ui";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -60,11 +65,17 @@ function Add() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
+        <Typography variant="h5" textAlign="center">
+          Add Student
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h2" textAlign="center">
-            Add Student
-          </Typography>
           <DialogContent>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -132,14 +143,23 @@ function Add() {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="DOB"
-                  type="Date"
-                  {...register("dob", { required: "Please enter dob " })}
-                  error={!!errors.dob}
-                  helperText={errors.dob?.message}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <MobileDatePicker
+                    sx={{ width: "100%" }}
+                    label="Select DOB "
+                    {...register("date", { required: "Date is required" })}
+                    onChange={(date) => {
+                      setValue("date", date, { shouldValidate: true });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors.date?.message}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
