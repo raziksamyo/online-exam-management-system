@@ -172,7 +172,7 @@ function Edit() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="contined" color="error" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
               Discard
             </MDButton>
           </DialogActions>
