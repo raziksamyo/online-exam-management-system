@@ -5,6 +5,7 @@ import {
   DialogActions,
   DialogContent,
   TextField,
+  DialogTitle,
   Select,
   InputLabel,
   MenuItem,
@@ -55,6 +56,7 @@ function Edits() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
+        <DialogTitle>Edit question</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <Grid container spacing={2}>
@@ -193,7 +195,7 @@ function Edits() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
               Discard
             </MDButton>
           </DialogActions>

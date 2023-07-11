@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   TextField,
   Select,
   InputLabel,
@@ -15,6 +16,7 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
@@ -47,8 +49,15 @@ function Edit() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
+        <DialogTitle>Edit Courses </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
@@ -98,7 +107,7 @@ function Edit() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
               Discard
             </MDButton>
           </DialogActions>

@@ -39,7 +39,7 @@ function Addeds() {
           backgroundColor: "#308AEC",
           color: "#FFFFFF",
           fontWeight: "normal !important",
-          fontSize: "10px",
+          fontSize: "12px",
           padding: "1px 10px",
           "&:hover": {
             backgroundColor: "#32AADD",
@@ -48,7 +48,7 @@ function Addeds() {
           "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
         }}
       >
-        Add Result
+        ADD RESULT
       </MDButton>
       <Dialog
         open={open}

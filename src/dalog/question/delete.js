@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Typography,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Dialog, DialogActions, DialogContent, Typography, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
 
 function Deletes() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -36,12 +30,12 @@ function Deletes() {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setIsOpen(false)} color="error">
+          <MDButton variant="contained" onClick={() => setIsOpen(false)}>
             No
-          </Button>
-          <Button variant="contained" color="error">
+          </MDButton>
+          <MDButton variant="contained" color="error">
             Yes
-          </Button>
+          </MDButton>
         </DialogActions>
       </Dialog>
     </MDBox>

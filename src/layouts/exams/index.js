@@ -1,11 +1,12 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Delete from "dalog/couses/delete";
+import Delete from "dalog/exam/deleted";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box } from "@mui/material";
 import Add from "dalog/exam/add";
-import Edit from "dalog/couses/edit";
+import Edit from "dalog/exam/edit";
+import Search from "components/Search/Search";
 
 const columns = [
   {
@@ -84,7 +85,10 @@ function Exams() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox>
-        <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "5px" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+          <Box>
+            <Search />
+          </Box>
           <Add />
         </Box>
 
