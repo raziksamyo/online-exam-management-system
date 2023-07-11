@@ -4,12 +4,13 @@ import {
   DialogActions,
   DialogContent,
   Typography,
-  Button,
   IconButton,
+  // Box,
 } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import MDBox from "components/MDBox";
 import PropTypes from "prop-types";
+import MDButton from "components/MDButton";
 
 function DeleteStudent({ row, index }) {
   //   console.log("props", index);
@@ -41,12 +42,10 @@ function DeleteStudent({ row, index }) {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setIsOpen(false)}>
+          <MDButton color="info" onClick={() => setIsOpen(false)}>
             No
-          </Button>
-          <Button variant="contained" color="error">
-            Yes
-          </Button>
+          </MDButton>
+          <MDButton color="error">Yes</MDButton>
         </DialogActions>
       </Dialog>
     </MDBox>
