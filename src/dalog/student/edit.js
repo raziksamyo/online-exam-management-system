@@ -6,6 +6,10 @@ import {
   DialogContent,
   TextField,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -24,19 +28,17 @@ function Edit() {
   const {
     handleSubmit,
     register,
-    reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
   };
 
-  const handleDiscard = () => {
-    setOpen(false);
-    reset();
+  const handleChange = (event) => {
+    setGender(event.target.value);
   };
-
   return (
     <MDBox>
       <IconButton
@@ -53,9 +55,7 @@ function Edit() {
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
-        aria-describedby="user-view-edit-description"
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, padding: [2, 3] } }}
       >
         <Typography varaint="h5">Edit student Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,75 +67,82 @@ function Edit() {
               <CloseIcon />
             </IconButton>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("name", { required: "Please enter a name" })}
+                  {...register("Name", { required: "Please enter a Frist Name" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Name"
-                  defaultValue="Mohit"
-                  helperText={errors.name?.message}
-                  error={errors.name}
+                  helperText={errors?.name?.message}
+                  error={errors?.name}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("Email", { required: "Please enter email id " })}
+                  {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
+                  }}
+                  label="Contact Number"
+                  helperText={errors?.contactNumber?.message}
+                  error={errors?.contactNumber}
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select label="Age" value={gender} onChange={handleChange}>
+                    <MenuItem value={10}>Male</MenuItem>
+                    <MenuItem value={20}>Female</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item sm={6}>
+                <TextField
+                  {...register("email", { required: "Please enter Email ID" })}
+                  fullWidth
+                  onChange={(e) => {
+                    setValue(e.target.value);
                   }}
                   label="Email ID"
-                  defaultValue="mg08312@gmail.com"
-                  helperText={errors.Email?.message}
-                  error={errors?.Email}
+                  helperText={errors.email?.message}
+                  error={errors?.email}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("MobileNo", { required: "Please enter a mobile No" })}
                   fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  defaultValue="9039512378"
-                  label="Contact Number"
-                  helperText={errors?.MobileNo?.message}
-                  error={errors?.MobileNo}
+                  label="Hight Qualifications"
+                  {...register("qualifications", { required: "Please filed Hight Qualifications" })}
+                  error={errors?.qualifications}
+                  helperText={errors.qualifications?.message}
                 />
               </Grid>
-
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("Gender", { required: "Please enter Gender" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="text"
-                  label="Gender"
-                  defaultValue="M"
-                  helperText={errors?.Gender?.message}
-                  error={errors?.Gender}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Address", { required: "Please enter a address" })}
+                  {...register("address", { required: "Please enter a Address" })}
                   fullWidth
                   type="text"
-                  defaultValue="162 ambey nagar Sukhilya"
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Address"
-                  helperText={errors.Address?.message}
-                  error={errors.Address}
+                  helperText={errors.address?.message}
+                  error={errors.address}
                 />
               </Grid>
 
@@ -176,10 +183,10 @@ function Edit() {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <MDButton type="submit" variant="contained" color="success" sx={{ mr: 1 }}>
+            <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="contained" color="error" onClick={handleDiscard}>
+            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
               Discard
             </MDButton>
           </DialogActions>

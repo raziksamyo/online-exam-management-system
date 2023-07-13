@@ -13,7 +13,9 @@ import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined
 import CloseIcon from "@mui/icons-material/Close";
 import MDButton from "components/MDButton";
 
-function DeleteTeacher() {
+function Delete(props) {
+  console.log("props", props);
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <MDBox>
       <IconButton
@@ -30,10 +32,9 @@ function DeleteTeacher() {
       <Dialog
         onClose={() => setIsOpen(false)}
         open={isOpen}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 430, padding: [2, 3] } }}
       >
-        <DialogTitle sx={{ textAlign: "center", color: "orange", fontSize: "42px" }}>
+        <DialogTitle sx={{ textAlign: "center", color: "orange", fontSize: "50px" }}>
           <ReportProblemOutlinedIcon />
         </DialogTitle>
         <DialogContent>
@@ -47,7 +48,7 @@ function DeleteTeacher() {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <MDButton variant="contained" onClick={() => setIsOpen(false)}>
+          <MDButton variant="contained" color="success" onClick={() => setIsOpen(false)}>
             No
           </MDButton>
           <MDButton variant="contained" color="error">
@@ -58,5 +59,8 @@ function DeleteTeacher() {
     </MDBox>
   );
 }
-
-export default DeleteTeacher;
+// ConfirmNotification.propTypes = {
+//   Item: PropTypes.any.isRequired,
+//   RowsNo: PropTypes.any.isRequired,
+// };
+export default Delete;
