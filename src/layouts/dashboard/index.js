@@ -1,35 +1,74 @@
 // Material Dashboard 2 React example components
+import { Box, Grid } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Box, Grid } from "@mui/material";
-import BasicCard from "coreComponent/basicCard";
-import dayWord from "context/common";
-import img from "../../assets/Images/Dashboard-bg.jpg";
+import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 function Dashboard() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <Box>
-        <Grid
-          container
-          // justify="center"
-          // alignItems="center"
-          // spacing={2}
-          sx={{
-            backgroundImage: `url(${img})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            height: "auto",
-            // width: "100%",
-          }}
-        >
-          {dayWord.map((item) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} sx={{ p: 1 }}>
-              <BasicCard heading={item.heading} count={item.count} />
-            </Grid>
-          ))}
+      <Box py={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box>
+              <ComplexStatisticsCard
+                color="dark"
+                icon="person"
+                title="Teacher"
+                count={281}
+                percentage={{
+                  color: "success",
+                  amount: "+55%",
+                  label: "than lask week",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box>
+              <ComplexStatisticsCard
+                color="primary"
+                icon="person_add"
+                title="Student"
+                count="2,300"
+                percentage={{
+                  color: "success",
+                  amount: "+3%",
+                  label: "than last month",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box>
+              <ComplexStatisticsCard
+                color="success"
+                icon="leaderboard"
+                title="Result"
+                percentage={{
+                  color: "success",
+                  amount: "+1%",
+                  label: "than yesterday",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box>
+              <ComplexStatisticsCard
+                color="info"
+                icon="menuBook"
+                title="Question"
+                count="+91"
+                percentage={{
+                  color: "success",
+                  amount: "",
+                  label: "Just updated",
+                }}
+              />
+            </Box>
+          </Grid>
         </Grid>
       </Box>
     </DashboardLayout>
