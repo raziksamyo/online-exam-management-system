@@ -18,15 +18,16 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
-import MDBox from "components/MDBox";
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker, AdapterDateFns } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 function Add() {
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [fields, setFields] = useState([{ id: 1, value: "" }]);
+  const [nextId, setNextId] = useState(2);
   const {
     handleSubmit,
     register,

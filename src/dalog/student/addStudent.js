@@ -6,7 +6,6 @@ import {
   TextField,
   IconButton,
   Typography,
-  IconButton,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
@@ -16,7 +15,6 @@ import { FileDocumentEdit } from "mdi-material-ui";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import CloseIcon from "@mui/icons-material/Close";
 
 function Add() {
   const [open, setOpen] = useState(false);
