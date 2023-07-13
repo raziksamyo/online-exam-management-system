@@ -1,5 +1,4 @@
 import { DataGrid } from "@mui/x-data-grid";
-import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box, IconButton } from "@mui/material";
@@ -31,10 +30,10 @@ const Columns = [
     headerName: "Action",
     minWidth: 200,
     renderCell: () => (
-      <MDBox sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }}>
         <Edits />
         <Delete />
-      </MDBox>
+      </Box>
     ),
   },
 ];
@@ -78,25 +77,32 @@ function Courses() {
       minWidth: 300,
     },
     {
+      field: "addquestion",
+      headerName: "Question",
+      minWidth: 100,
+      renderCell: () => (
+        <IconButton
+          onClick={handelClick}
+          color="info"
+          sx={{
+            "&:hover": {
+              backgroundColor: "rgba(96, 233, 101, 0.18)",
+            },
+          }}
+        >
+          <QuizIcon />
+        </IconButton>
+      ),
+    },
+    {
       field: "actions",
       headerName: "Actions",
       minWidth: 250,
       renderCell: () => (
-        <MDBox sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex" }}>
           <Delete />
           <Edit />
-          <IconButton
-            onClick={handelClick}
-            color="info"
-            sx={{
-              "&:hover": {
-                backgroundColor: "rgba(96, 233, 101, 0.18)",
-              },
-            }}
-          >
-            <QuizIcon />
-          </IconButton>
-        </MDBox>
+        </Box>
       ),
     },
   ];
@@ -120,9 +126,9 @@ function Courses() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox>
+      <Box>
         {open ? (
-          <MDBox>
+          <Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
               <MDButton
                 onClick={handelClick}
@@ -158,7 +164,7 @@ function Courses() {
                 },
               }}
             />
-          </MDBox>
+          </Box>
         ) : (
           <Box>
             <Box sx={{ display: "flex", marginBottom: "5px", justifyContent: "space-between" }}>
@@ -184,7 +190,7 @@ function Courses() {
         )}
 
         {/* <AddQuestion /> */}
-      </MDBox>
+      </Box>
     </DashboardLayout>
   );
 }

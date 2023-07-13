@@ -11,6 +11,8 @@ import {
   FormControl,
   InputLabel,
   Box,
+  Button,
+  FormHelperText,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -24,18 +26,21 @@ function Add() {
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleClose = () => {
     setOpen(false);
+    reset();
   };
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
   return (
     <Box>
-      <IconButton
+      <Button
         onClick={() => setOpen(true)}
         startIcon={<FileDocumentEdit />}
         sx={{
@@ -43,21 +48,21 @@ function Add() {
           backgroundColor: "#308AEC",
           color: "#FFFFFF",
           fontWeight: "normal !important",
-          fontSize: "13px",
+          fontSize: "12px",
           padding: "1px 10px",
           "&:hover": {
             backgroundColor: "#32AADD",
             color: "#FFFFFF",
           },
-          "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
+          "&:focus:not(:hover)": { color: "#FFFFFF" },
         }}
       >
         Add Courses
-      </IconButton>
+      </Button>
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
         <Typography variant="h3">Add Courses</Typography>
@@ -86,6 +91,11 @@ function Add() {
                     <MenuItem value="Varun">Varun</MenuItem>
                     <MenuItem value="Mohit">Mohit</MenuItem>
                   </Select>
+                  {errors?.teacherId && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.teacherId?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -108,10 +118,10 @@ function Add() {
                   type="text"
                   {...register("description", { required: "Please enter Description " })}
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   error={!!errors.description}
-                  helperText={errors.title?.description}
+                  helperText={errors.description?.message}
                 />
               </Grid>
             </Grid>

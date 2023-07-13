@@ -6,18 +6,19 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
   IconButton,
   MenuItem,
   Select,
   FormControl,
   InputLabel,
-  // FormHelperText,
+  Button,
+  Box,
+  FormHelperText,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -55,14 +56,15 @@ function Add() {
 
   const handleClose = () => {
     setOpen(false);
+    reset();
   };
   const onSubmit = (data) => {
     console.log("Data", data);
     reset();
   };
   return (
-    <MDBox>
-      <MDButton
+    <Box>
+      <Button
         onClick={() => setOpen(true)}
         startIcon={<FileDocumentEdit />}
         sx={{
@@ -71,23 +73,24 @@ function Add() {
           color: "#FFFFFF",
           fontWeight: "normal !important",
           fontSize: "12px",
-          padding: "1px 20px",
+          padding: "1px 10px",
           "&:hover": {
             backgroundColor: "#32AADD",
             color: "#FFFFFF",
           },
-          "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
+          "&:focus:not(:hover)": { color: "#FFFFFF" },
         }}
       >
-        ADD EXAM
-      </MDButton>
+        Add Exam
+      </Button>
+
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 850, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Examination</DialogTitle>
+        <Typography variant="h3">Add Examination</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -113,6 +116,11 @@ function Add() {
                     <MenuItem>Reactjs</MenuItem>
                     <MenuItem>Javascript</MenuItem>
                   </Select>
+                  {errors.coursesName && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.coursesName?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -141,7 +149,7 @@ function Add() {
                       <TextField
                         {...params}
                         error={!!errors.date}
-                        helperText={errors.date?.message}
+                        helperText={errors?.date?.message}
                       />
                     )}
                   />
@@ -163,13 +171,24 @@ function Add() {
               <Grid item xs={12} sm={4}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <MobileTimePicker
-                    defaultValue={dayjs("2022-04-17T15:30")}
                     label="startTime"
                     {...register("starttime", { required: "Time is required" })}
                     onChange={(starttime) =>
                       setValue("starttime", starttime, { shouldValidate: true })
                     }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors?.date?.message}
+                      />
+                    )}
                   />
+                  {errors?.starttime && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.starttime?.message}
+                    </FormHelperText>
+                  )}
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -207,7 +226,7 @@ function Add() {
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Add;

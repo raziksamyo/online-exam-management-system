@@ -4,14 +4,15 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
+  Typography,
   TextField,
   Select,
   InputLabel,
   MenuItem,
   FormControl,
+  Box,
+  FormHelperText,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -24,13 +25,19 @@ function Edit() {
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
+  };
+  const handelClose = () => {
+    setOpen(false);
+    reset();
   };
   return (
-    <MDBox>
+    <Box>
       <IconButton
         onClick={() => setOpen(true)}
         color="success"
@@ -46,15 +53,15 @@ function Edit() {
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle>Edit Courses </DialogTitle>
+        <Typography variant="h3">Edit Courses </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
               sx={{ position: "absolute", right: "1rem", top: "1rem" }}
-              onClick={() => setOpen(false)}
+              onClick={handelClose}
             >
               <CloseIcon />
             </IconButton>
@@ -74,6 +81,11 @@ function Edit() {
                     <MenuItem value="Varun">Varun</MenuItem>
                     <MenuItem value="Mohit">Mohit</MenuItem>
                   </Select>
+                  {errors?.teacherId && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.teacherId?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -81,7 +93,7 @@ function Edit() {
                   {...register("Title", { required: "Please enter Title " })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="TITLE"
                   helperText={errors.Title?.message}
@@ -94,7 +106,7 @@ function Edit() {
                   fullWidth
                   type="text"
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Description"
                   helperText={errors.Description?.message}
@@ -107,13 +119,13 @@ function Edit() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={handelClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Edit;

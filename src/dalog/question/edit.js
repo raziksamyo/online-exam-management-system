@@ -11,12 +11,14 @@ import {
   MenuItem,
   FormControl,
   Radio,
+  Box,
+  FormHelperText,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Edits() {
   const [open, setOpen] = useState(false);
@@ -36,8 +38,12 @@ function Edits() {
     console.log("Data", data);
     reset();
   };
+  const handelClose = () => {
+    setOpen(false);
+    reset();
+  };
   return (
-    <MDBox>
+    <Box>
       <IconButton
         onClick={() => setOpen(true)}
         color="success"
@@ -56,11 +62,15 @@ function Edits() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <Typography variant="h5" textAlign="center">
-          Edit question
-        </Typography>
+        <Typography variant="h3">Edit question</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
+            <IconButton
+              sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+              onClick={handelClose}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -77,6 +87,11 @@ function Edits() {
                     <MenuItem value="Reactjs">Reactjs</MenuItem>
                     <MenuItem value="Javascript">Javascript</MenuItem>
                   </Select>
+                  {errors.CoursesName && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.CoursesName?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
@@ -93,7 +108,7 @@ function Edits() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={2}>
+                  <Grid item xs={1}>
                     <Radio
                       name="radio-buttons"
                       onChange={(e) => handleChange(e)}
@@ -101,7 +116,7 @@ function Edits() {
                       checked={selectedValue === "option1"}
                     />
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={11}>
                     <TextField
                       {...register("option1", { required: "Please enter option1" })}
                       fullWidth
@@ -118,7 +133,7 @@ function Edits() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={2}>
+                  <Grid item xs={1}>
                     <Radio
                       name="radio-buttons"
                       onChange={(e) => handleChange(e)}
@@ -126,7 +141,7 @@ function Edits() {
                       checked={selectedValue === "option2"}
                     />
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={11}>
                     <TextField
                       {...register("option2", { required: "Please enter option2" })}
                       fullWidth
@@ -143,7 +158,7 @@ function Edits() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={2}>
+                  <Grid item xs={1}>
                     <Radio
                       name="radio-buttons"
                       onChange={(e) => handleChange(e)}
@@ -151,7 +166,7 @@ function Edits() {
                       checked={selectedValue === "option3"}
                     />
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={11}>
                     <TextField
                       {...register("option3", { required: "Please enter option3" })}
                       fullWidth
@@ -168,7 +183,7 @@ function Edits() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={2}>
+                  <Grid item xs={1}>
                     <Radio
                       name="radio-buttons"
                       onChange={(e) => handleChange(e)}
@@ -176,7 +191,7 @@ function Edits() {
                       checked={selectedValue === "option4"}
                     />
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={11}>
                     <TextField
                       {...register("option4", { required: "Please enter option4" })}
                       fullWidth
@@ -197,13 +212,13 @@ function Edits() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={handelClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Edits;
