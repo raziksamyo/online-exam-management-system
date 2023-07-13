@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
   Select,
   InputLabel,
   MenuItem,
@@ -53,10 +53,12 @@ function Edits() {
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle>Edit question</DialogTitle>
+        <Typography variant="h5" textAlign="center">
+          Edit question
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <Grid container spacing={2}>

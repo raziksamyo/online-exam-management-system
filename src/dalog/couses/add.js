@@ -4,19 +4,19 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
   IconButton,
   MenuItem,
   Select,
   FormControl,
   InputLabel,
+  Box,
 } from "@mui/material";
-import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FileDocumentEdit } from "mdi-material-ui";
 import CloseIcon from "@mui/icons-material/Close";
+import MDButton from "components/MDButton";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -34,8 +34,8 @@ function Add() {
     console.log("Data", data);
   };
   return (
-    <MDBox>
-      <MDButton
+    <Box>
+      <IconButton
         onClick={() => setOpen(true)}
         startIcon={<FileDocumentEdit />}
         sx={{
@@ -43,7 +43,7 @@ function Add() {
           backgroundColor: "#308AEC",
           color: "#FFFFFF",
           fontWeight: "normal !important",
-          fontSize: "12px",
+          fontSize: "13px",
           padding: "1px 10px",
           "&:hover": {
             backgroundColor: "#32AADD",
@@ -53,14 +53,14 @@ function Add() {
         }}
       >
         Add Courses
-      </MDButton>
+      </IconButton>
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Courses</DialogTitle>
+        <Typography variant="h3">Add Courses</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -117,16 +117,16 @@ function Add() {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
+            <MDButton type="submit" variant="contained" color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={handleClose}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Add;

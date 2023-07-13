@@ -84,7 +84,7 @@ function AddQuestion() {
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
         <DialogTitle sx={{ textAlign: "center" }}>Add Question</DialogTitle>
