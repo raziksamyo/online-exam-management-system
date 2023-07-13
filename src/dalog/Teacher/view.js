@@ -62,6 +62,10 @@ function View() {
               <Typography sx={{ fontWeight: 200 }}>BCA, MCA, B.Tech</Typography>
             </Grid>
             <Grid item xs={6}>
+              <Typography variant="h5">Joining Date:-</Typography>
+              <Typography sx={{ fontWeight: 200 }}>19-06-2023</Typography>
+            </Grid>
+            <Grid item xs={6}>
               <Typography variant="h5">Email ID :- </Typography>
               <Typography sx={{ fontWeight: 200 }}>varunsharma@gmail.com</Typography>
             </Grid>
@@ -69,7 +73,7 @@ function View() {
               <Typography variant="h5">Experience :- </Typography>
               <Typography sx={{ fontWeight: 200 }}>2 yrs</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Typography variant="h5">Address :</Typography>
               <Typography sx={{ fontWeight: 200 }}>
                 96 , A Green Park CoLony Dhar Road Indore , Indore (M.P)
