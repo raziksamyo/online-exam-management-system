@@ -4,19 +4,21 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
   IconButton,
   MenuItem,
   Select,
   FormControl,
   InputLabel,
+  Box,
+  Button,
+  FormHelperText,
 } from "@mui/material";
-import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FileDocumentEdit } from "mdi-material-ui";
 import CloseIcon from "@mui/icons-material/Close";
+import MDButton from "components/MDButton";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -24,18 +26,21 @@ function Add() {
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
   const handleClose = () => {
     setOpen(false);
+    reset();
   };
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
   return (
-    <MDBox>
-      <MDButton
+    <Box>
+      <Button
         onClick={() => setOpen(true)}
         startIcon={<FileDocumentEdit />}
         sx={{
@@ -49,18 +54,18 @@ function Add() {
             backgroundColor: "#32AADD",
             color: "#FFFFFF",
           },
-          "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
+          "&:focus:not(:hover)": { color: "#FFFFFF" },
         }}
       >
         Add Courses
-      </MDButton>
+      </Button>
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Courses</DialogTitle>
+        <Typography variant="h3">Add Courses</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -86,6 +91,11 @@ function Add() {
                     <MenuItem value="Varun">Varun</MenuItem>
                     <MenuItem value="Mohit">Mohit</MenuItem>
                   </Select>
+                  {errors?.teacherId && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.teacherId?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -108,25 +118,25 @@ function Add() {
                   type="text"
                   {...register("description", { required: "Please enter Description " })}
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   error={!!errors.description}
-                  helperText={errors.title?.description}
+                  helperText={errors.description?.message}
                 />
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
-            <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
+            <MDButton type="submit" variant="contained" color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={handleClose}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Add;

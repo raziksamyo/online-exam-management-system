@@ -4,10 +4,10 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
   IconButton,
+  Box,
+  Typography,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -20,6 +20,7 @@ function Addeds() {
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -28,9 +29,10 @@ function Addeds() {
   };
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
   return (
-    <MDBox>
+    <Box>
       <MDButton
         onClick={() => setOpen(true)}
         startIcon={<FileDocumentEdit />}
@@ -53,10 +55,10 @@ function Addeds() {
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Result</DialogTitle>
+        <Typography variant="h3">Add Result</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -140,13 +142,13 @@ function Addeds() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={handleClose}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Addeds;

@@ -16,14 +16,13 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import CloseIcon from "@mui/icons-material/Close";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
   const [gender, setGender] = useState("");
-
   const {
     handleSubmit,
     register,
@@ -56,9 +55,9 @@ function Edit() {
         onClose={() => setOpen(false)}
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, padding: [2, 3] } }}
       >
-        <Typography variant="h3">Edit Student Details</Typography>
+        <Typography varaint="h5">Edit student Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent sx={{ overflow: "hidden" }}>
+          <DialogContent>
             <IconButton
               sx={{ position: "absolute", right: "1rem", top: "1rem" }}
               onClick={() => setOpen(false)}
@@ -144,13 +143,30 @@ function Edit() {
                   error={errors.address}
                 />
               </Grid>
-              <Grid item sm={6}>
+
+              <Grid item xs={12} sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
+                  {...register("education", { required: "Please enter a Education" })}
                   fullWidth
-                  type="file"
-                  {...register("photo", { required: "Please select a photo" })}
-                  error={!!errors.photo}
-                  helperText={errors.photo?.message}
+                  defaultValue="BTech(Computer Science )"
+                  type="text"
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value);
+                  }}
+                  label="Education"
+                  helperText={errors?.education?.message}
+                  error={errors.education}
                 />
               </Grid>
             </Grid>

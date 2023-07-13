@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Delete from "dalog/exam/deleted";
+import Delete from "components/Delete";
 import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";

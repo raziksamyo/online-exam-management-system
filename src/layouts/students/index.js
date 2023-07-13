@@ -6,7 +6,7 @@ import * as React from "react";
 import { Grid, Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Add from "dalog/student/addStudent";
-import Delete from "dalog/student/delete";
+import Delete from "dalog/Teacher/delete";
 import Edit from "dalog/student/edit";
 import View from "dalog/student/view";
 import Search from "components/Search/Search";

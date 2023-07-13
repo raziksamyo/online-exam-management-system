@@ -9,9 +9,9 @@ import {
   Box,
   Button,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
+  InputLabel,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
@@ -73,12 +73,14 @@ function Add() {
         onClose={() => setOpen(false)}
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
       >
-        <Typography variant="h3">Add Student Details</Typography>
+        <Typography variant="h5" textAlign="center">
+          Add Student
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
               sx={{ position: "absolute", right: "1rem", top: "1rem" }}
-              onClick={handleClose}
+              onClick={() => setOpen(false)}
             >
               <CloseIcon />
             </IconButton>
@@ -161,13 +163,30 @@ function Add() {
                   error={errors.address}
                 />
               </Grid>
-              <Grid item sm={6}>
+
+              <Grid item xs={12} sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
+                  {...register("education", { required: "Please enter a Education" })}
                   fullWidth
-                  type="file"
-                  {...register("photo", { required: "Please select a photo" })}
-                  error={!!errors.photo}
-                  helperText={errors.photo?.message}
+                  onChange={(e) => {
+                    if (+e.target.value < 0) e.target.value = 0;
+                    setValue(e.target.name, e.target.value);
+                  }}
+                  type="number"
+                  label="Education"
+                  helperText={errors?.education?.message}
+                  error={errors?.education}
                 />
               </Grid>
             </Grid>

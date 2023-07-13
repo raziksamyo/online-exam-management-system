@@ -4,19 +4,21 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
   IconButton,
   MenuItem,
   Select,
   FormControl,
   InputLabel,
   Radio,
+  Button,
+  Box,
+  FormHelperText,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { FileDocumentEdit } from "mdi-material-ui";
+import QuizIcon from "@mui/icons-material/Quiz";
 import CloseIcon from "@mui/icons-material/Close";
 
 // const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -61,10 +63,10 @@ function AddQuestion() {
     setValue(e.target.name, e.target.value);
   };
   return (
-    <MDBox>
-      <MDButton
+    <Box>
+      <Button
         onClick={() => setOpen(true)}
-        startIcon={<FileDocumentEdit />}
+        startIcon={<QuizIcon />}
         sx={{
           borderRadius: "10px",
           backgroundColor: "#308AEC",
@@ -76,18 +78,18 @@ function AddQuestion() {
             backgroundColor: "#32AADD",
             color: "#FFFFFF",
           },
-          "&:focus:not(:hover)": { color: "#FFFFFF", backgroundColor: "#308AEC" },
+          "&:focus:not(:hover)": { color: "#FFFFFF" },
         }}
       >
         Add Question
-      </MDButton>
+      </Button>
       <Dialog
         open={open}
         aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle sx={{ textAlign: "center" }}>Add Question</DialogTitle>
+        <Typography variant="h3">Add Question</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -103,8 +105,8 @@ function AddQuestion() {
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-helper-label">CourseName</InputLabel>
                       <Select
-                        {...register("courseName", { required: "PLease selected option" })}
-                        error={errors?.courseName}
+                        {...register("courseName", { required: "Please selected option" })}
+                        error={!!errors?.courseName}
                         helperText={errors?.courseName?.message}
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
@@ -115,6 +117,11 @@ function AddQuestion() {
                         <MenuItem value="Reactjs">Reactjs</MenuItem>
                         <MenuItem value="Javascript">Javascript</MenuItem>
                       </Select>
+                      {errors.courseName && (
+                        <FormHelperText sx={{ color: "red" }}>
+                          {errors?.courseName?.message}
+                        </FormHelperText>
+                      )}
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
@@ -122,12 +129,12 @@ function AddQuestion() {
                       fullWidth
                       label="Question"
                       type="text"
-                      {...register(`questions${index}.question`, {
+                      {...register(`questions${index}.questions`, {
                         required: "please enter a question",
                       })}
                       onChange={handleFieldChange}
-                      error={!!errors?.question}
-                      helperText={errors.question?.message}
+                      error={!!errors[`questions${index}.questions`]}
+                      helperText={errors[`questions${index}.questions`]?.message}
                     />
                   </Grid>
                   <Grid item xs={12} spacing={2}>
@@ -263,7 +270,7 @@ function AddQuestion() {
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default AddQuestion;

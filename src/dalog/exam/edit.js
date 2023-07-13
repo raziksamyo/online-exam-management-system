@@ -4,34 +4,32 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
+  Typography,
   TextField,
   Select,
   InputLabel,
   MenuItem,
   FormControl,
+  Box,
+  FormHelperText,
 } from "@mui/material";
-import dayjs from "dayjs";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import CloseIcon from "@mui/icons-material/Close";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function Edit() {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
     handleSubmit,
     register,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -39,7 +37,7 @@ function Edit() {
     reset();
   };
   return (
-    <MDBox>
+    <Box>
       <IconButton
         onClick={() => setOpen(true)}
         color="success"
@@ -58,7 +56,7 @@ function Edit() {
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 10] } }}
         aria-describedby="user-view-edit-description"
       >
-        <DialogTitle>Exam details</DialogTitle>
+        <Typography variant="h3">Exam details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -84,6 +82,11 @@ function Edit() {
                     <MenuItem>Reactjs</MenuItem>
                     <MenuItem>Javascript</MenuItem>
                   </Select>
+                  {errors?.coursesName && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.coursesName?.message}
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -99,24 +102,27 @@ function Edit() {
                 />
               </Grid>
               <Grid item sm={4} xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    defaultValue={dayjs(selectedDate)}
-                    label="Select a date"
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                      setSelectedDate(date);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+                <FormControl>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label="Createdate"
+                      {...register("date", { required: "Date is required" })}
+                      onChange={(date) => {
+                        setValue("date", date, { shouldValidate: true });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          error={!!errors?.date}
+                          helperText={errors?.date?.message}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                  {errors?.date && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.date?.message}</FormHelperText>
+                  )}
+                </FormControl>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -132,25 +138,48 @@ function Edit() {
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <MobileTimePicker
-                    defaultValue={dayjs("2022-04-17T15:30")}
                     label="startTime"
                     {...register("starttime", { required: "Time is required" })}
                     onChange={(starttime) =>
                       setValue("starttime", starttime, { shouldValidate: true })
                     }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.date}
+                        helperText={errors?.date?.message}
+                      />
+                    )}
                   />
+                  {errors?.starttime && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.starttime?.message}
+                    </FormHelperText>
+                  )}
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <MobileTimePicker
-                    defaultValue={dayjs("2022-04-17T15:30")}
                     label="endTime"
-                    {...register("endtime", { required: "Time is required" })}
-                    onChange={(endTime) => setValue("endtime", endTime, { shouldValidate: true })}
+                    {...register("endtime", { required: " end time is required" })}
+                    onChange={(endtime) => setValue("endtime", endtime, { shouldValidate: true })}
+                    value={watch("endtime")}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.endtime}
+                        helperText={errors?.endtime?.message}
+                      />
+                    )}
                   />
+                  {errors?.endtime && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.endtime?.message}
+                    </FormHelperText>
+                  )}
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -178,7 +207,7 @@ function Edit() {
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Edit;

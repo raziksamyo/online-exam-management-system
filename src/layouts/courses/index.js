@@ -1,6 +1,4 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Delete from "dalog/couses/delete";
-import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box, IconButton } from "@mui/material";
@@ -11,7 +9,7 @@ import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
 import AddQuestion from "dalog/question/addquestion";
 import Edits from "dalog/question/edit";
-import Deletes from "dalog/question/delete";
+import Delete from "components/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Search from "components/Search/Search";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -32,10 +30,10 @@ const Columns = [
     headerName: "Action",
     minWidth: 200,
     renderCell: () => (
-      <MDBox sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }}>
         <Edits />
-        <Deletes />
-      </MDBox>
+        <Delete />
+      </Box>
     ),
   },
 ];
@@ -79,25 +77,32 @@ function Courses() {
       minWidth: 300,
     },
     {
+      field: "addquestion",
+      headerName: "Question",
+      minWidth: 100,
+      renderCell: () => (
+        <IconButton
+          onClick={handelClick}
+          color="info"
+          sx={{
+            "&:hover": {
+              backgroundColor: "rgba(96, 233, 101, 0.18)",
+            },
+          }}
+        >
+          <QuizIcon />
+        </IconButton>
+      ),
+    },
+    {
       field: "actions",
       headerName: "Actions",
       minWidth: 250,
       renderCell: () => (
-        <MDBox sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex" }}>
           <Delete />
           <Edit />
-          <IconButton
-            onClick={handelClick}
-            color="info"
-            sx={{
-              "&:hover": {
-                backgroundColor: "rgba(96, 233, 101, 0.18)",
-              },
-            }}
-          >
-            <QuizIcon />
-          </IconButton>
-        </MDBox>
+        </Box>
       ),
     },
   ];
@@ -121,9 +126,9 @@ function Courses() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox>
+      <Box>
         {open ? (
-          <MDBox>
+          <Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
               <MDButton
                 onClick={handelClick}
@@ -159,7 +164,7 @@ function Courses() {
                 },
               }}
             />
-          </MDBox>
+          </Box>
         ) : (
           <Box>
             <Box sx={{ display: "flex", marginBottom: "5px", justifyContent: "space-between" }}>
@@ -185,7 +190,7 @@ function Courses() {
         )}
 
         {/* <AddQuestion /> */}
-      </MDBox>
+      </Box>
     </DashboardLayout>
   );
 }
