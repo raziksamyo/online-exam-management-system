@@ -149,7 +149,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}
           >
             <MDTypography component="h6" variant="button" fontWeight="medium" color={textColor}>
-              OnlineEMS
+              Online Exam Management
             </MDTypography>
           </MDBox>
         </MDBox>

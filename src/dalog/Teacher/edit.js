@@ -5,7 +5,13 @@ import {
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  Button,
 } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -13,17 +19,41 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import CloseIcon from "@mui/icons-material/Close";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function Edit() {
   const [open, setOpen] = useState(false);
+  const [gender, setGender] = useState("");
+  const [fields, setFields] = useState([{ id: 1, value: "" }]);
+  const [nextId, setNextId] = useState(2);
+
   const {
     handleSubmit,
     register,
     setValue,
+    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
+  };
+
+  const handleAddField = () => {
+    const newField = { id: nextId, value: "" };
+    setFields([...fields, newField]);
+    setNextId(nextId + 1);
+  };
+
+  const handleFieldChange = (id, event) => {
+    const updatedFields = fields.map((field) =>
+      field.id === id ? { ...field, value: event.target.value } : field
+    );
+    setFields(updatedFields);
+  };
+
+  const handleChange = (event) => {
+    setGender(event.target.value);
   };
   return (
     <MDBox>
@@ -41,11 +71,9 @@ function Edit() {
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 700, padding: [2, 3] } }}
-        aria-describedby="user-view-edit-description"
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, padding: [2, 3] } }}
       >
-        <DialogTitle>Add Personal information for Teacher </DialogTitle>
+        <Typography variant="h3">Edit Teacher Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent sx={{ overflow: "hidden" }}>
             <IconButton
@@ -55,117 +83,96 @@ function Edit() {
               <CloseIcon />
             </IconButton>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("name", { required: "Please enter a name" })}
+                  {...register("Name", { required: "Please enter a Frist Name" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Name"
-                  defaultValue="Mohit"
-                  helperText={errors.firstname?.message}
-                  error={errors.firstname}
+                  helperText={errors?.name?.message}
+                  error={errors?.name}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("lastname", { required: "Please enter a name" })}
+                  {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
-                  label="lastName"
-                  defaultValue="Mohit"
-                  helperText={errors.lastname?.message}
-                  error={errors.lastname}
+                  label="Contact Number"
+                  helperText={errors?.contactNumber?.message}
+                  error={errors?.contactNumber}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select label="Age" value={gender} onChange={handleChange}>
+                    <MenuItem value={10}>Male</MenuItem>
+                    <MenuItem value={20}>Female</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("Email", { required: "Please enter email id " })}
+                  {...register("email", { required: "Please enter Email ID" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Email ID"
-                  defaultValue="mg08312@gmail.com"
-                  helperText={errors.Email?.message}
-                  error={errors?.Email}
+                  helperText={errors.email?.message}
+                  error={errors?.email}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("joinDate")}
+                    label="Join Date"
+                    value={watch("joinDate")}
+                    onChange={(value) => setValue("joinDate", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("Address", { required: "Please enter a address" })}
+                  fullWidth
+                  label="Experience"
+                  {...register("experience", { required: "Please filed Experince" })}
+                  error={errors?.experience}
+                  helperText={errors.experience?.message}
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <TextField
+                  {...register("address", { required: "Please enter a Address" })}
                   fullWidth
                   type="text"
-                  defaultValue="162 ambey nagar Sukhilya"
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Address"
-                  helperText={errors.Address?.message}
-                  error={errors.Address}
+                  helperText={errors.address?.message}
+                  error={errors.address}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Qualification", { required: "Please enter a qualificaton" })}
-                  fullWidth
-                  defaultValue="BTech(Computer Science )"
-                  type="text"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Qualification"
-                  helperText={errors?.Qualification?.message}
-                  error={errors.Qualification}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("MobileNo", { required: "Please enter a mobile No" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  defaultValue="9039512378"
-                  label="Contact Number"
-                  helperText={errors?.MobileNo?.message}
-                  error={errors?.MobileNo}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("PinCode", { required: "Please enter Pincode" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Pincode"
-                  defaultValue="452010"
-                  helperText={errors?.PinCode?.message}
-                  error={errors?.PinCode}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("JoinDate", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  defaultValue="29/06/2023"
-                  helperText={errors?.JoinDate?.message}
-                  error={errors?.JoinDate}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
                   fullWidth
                   type="file"
@@ -174,27 +181,26 @@ function Edit() {
                   helperText={errors.photo?.message}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  defaultValue="2years"
-                  type="text"
-                  label="Experince"
-                  {...register("experince", { required: "PLease add experience" })}
-                  error={!!errors.experince}
-                  helperText={errors?.experince?.meassage}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  type="text"
-                  label="Gender"
-                  defaultValue="Male"
-                  {...register("gender", "Please add gender")}
-                  error={!!errors.meassage}
-                  helperText={errors?.gender?.meassage}
-                />
+              <Grid item sm={12}>
+                {fields.map((field) => (
+                  <Box sx={{ display: "flex" }}>
+                    <Box key={field.id}>
+                      <TextField
+                        sx={{
+                          width: { sm: 200, md: 300, lg: 560 },
+                          mb: 2,
+                        }}
+                        type="text"
+                        value={field.value}
+                        label="Qualifications"
+                        onChange={(event) => handleFieldChange(field.id, event)}
+                      />
+                    </Box>
+                    <Box>
+                      {field.value ? <Button onClick={handleAddField}>Add Field</Button> : ""}
+                    </Box>
+                  </Box>
+                ))}
               </Grid>
             </Grid>
           </DialogContent>
