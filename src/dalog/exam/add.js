@@ -1,5 +1,4 @@
 import * as React from "react";
-import dayjs from "dayjs";
 import {
   Grid,
   Dialog,
@@ -16,9 +15,8 @@ import {
   Box,
   FormHelperText,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -26,31 +24,14 @@ import { FileDocumentEdit } from "mdi-material-ui";
 import CloseIcon from "@mui/icons-material/Close";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 
-function padZero(number) {
-  return number.toString().padStart(2, "0");
-}
-function getCurrentTime() {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-
-  // Format the time as desired (e.g., HH:MM:SS)
-  const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
-
-  return formattedTime;
-}
-
-const currentTime = getCurrentTime();
-console.log("cureent", currentTime);
 function Add() {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const {
     handleSubmit,
     register,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -136,24 +117,27 @@ function Add() {
                 />
               </Grid>
               <Grid item sm={4} xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    defaultValue={dayjs(selectedDate)}
-                    label="Select a date"
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                      setSelectedDate(date);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors?.date?.message}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+                <FormControl>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label="Createdate"
+                      {...register("date", { required: "Date is required" })}
+                      onChange={(date) => {
+                        setValue("date", date, { shouldValidate: true });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          error={!!errors?.date}
+                          helperText={errors?.date?.message}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                  {errors?.date && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.date?.message}</FormHelperText>
+                  )}
+                </FormControl>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -169,7 +153,7 @@ function Add() {
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <MobileTimePicker
                     label="startTime"
                     {...register("starttime", { required: "Time is required" })}
@@ -192,13 +176,25 @@ function Add() {
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <MobileTimePicker
-                    defaultValue={dayjs("2022-04-17T15:30")}
                     label="endTime"
-                    {...register("endtime", { required: "Time is required" })}
-                    onChange={(endTime) => setValue("endtime", endTime, { shouldValidate: true })}
+                    {...register("endtime", { required: " end time is required" })}
+                    onChange={(endtime) => setValue("endtime", endtime, { shouldValidate: true })}
+                    value={watch("endtime")}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.endtime}
+                        helperText={errors?.endtime?.message}
+                      />
+                    )}
                   />
+                  {errors?.endtime && (
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors?.endtime?.message}
+                    </FormHelperText>
+                  )}
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>

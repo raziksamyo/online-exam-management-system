@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -14,6 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MDButton from "components/MDButton";
 
 function DeleteTeacher() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <MDBox>
       <IconButton

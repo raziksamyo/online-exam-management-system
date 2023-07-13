@@ -9,7 +9,7 @@ import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
 import AddQuestion from "dalog/question/addquestion";
 import Edits from "dalog/question/edit";
-import Delete from "dalog/Teacher/delete";
+import Delete from "components/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Search from "components/Search/Search";
 import QuizIcon from "@mui/icons-material/Quiz";

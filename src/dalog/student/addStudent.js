@@ -6,15 +6,20 @@ import {
   TextField,
   IconButton,
   Typography,
+  Box,
+  Button,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -160,21 +165,13 @@ function Add() {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
                     sx={{ width: "100%" }}
-                    label="Select DOB "
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                      />
-                    )}
                   />
                 </LocalizationProvider>
               </Grid>

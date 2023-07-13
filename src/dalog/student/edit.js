@@ -16,15 +16,13 @@ import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import CloseIcon from "@mui/icons-material/Close";
 
 function Edit() {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [gender, setGender] = useState("");
   const {
     handleSubmit,
     register,
@@ -147,22 +145,13 @@ function Edit() {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    defaultValue={dayjs(selectedDate)}
-                    label="Select a date"
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                      setSelectedDate(date);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                      />
-                    )}
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
                   />
                 </LocalizationProvider>
               </Grid>

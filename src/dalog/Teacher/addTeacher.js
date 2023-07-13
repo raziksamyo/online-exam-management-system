@@ -18,14 +18,12 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
-import dayjs from "dayjs";
-import { DatePicker, AdapterDateFns } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function Add() {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [gender, setGender] = useState("");
   const [fields, setFields] = useState([{ id: 1, value: "" }]);
   const [nextId, setNextId] = useState(2);
   const {
@@ -38,7 +36,6 @@ function Add() {
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
-    reset();
   };
 
   const handleClose = () => {
@@ -157,24 +154,14 @@ function Add() {
                   error={errors?.email}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("joinDate")}
+                    label="Join Date"
+                    value={watch("joinDate")}
+                    onChange={(value) => setValue("joinDate", value)}
                     sx={{ width: "100%" }}
-                    defaultValue={dayjs(selectedDate)}
-                    label="Select a date"
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                      setSelectedDate(date);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                      />
-                    )}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -187,24 +174,18 @@ function Add() {
                   helperText={errors.experience?.message}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
-                    sx={{ width: "100%" }}
-                    label="Select a DOB"
-                    {...register("dobdate", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("dobdate", date, { shouldValidate: true });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.dobdate}
-                        helperText={errors.dobdate?.message}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+              <Grid item sm={6}>
+                <TextField
+                  {...register("address", { required: "Please enter a Address" })}
+                  fullWidth
+                  type="text"
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Address"
+                  helperText={errors.address?.message}
+                  error={errors.address}
+                />
               </Grid>
               <Grid item sm={6}>
                 <TextField
