@@ -5,24 +5,32 @@ import {
   DialogContent,
   TextField,
   IconButton,
-  DialogTitle,
+  Typography,
   Box,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
-import MDBox from "components/MDBox";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function Add() {
   const [open, setOpen] = useState(false);
-
+  const [gender, setGender] = useState("");
+  const [fields, setFields] = useState([{ id: 1, value: "" }]);
+  const [nextId, setNextId] = useState(2);
   const {
     handleSubmit,
     register,
     setValue,
+    watch,
     reset,
     formState: { errors },
   } = useForm();
@@ -34,9 +42,6 @@ function Add() {
     setOpen(false);
     reset();
   };
-
-  const [fields, setFields] = useState([{ id: 1, value: "" }]);
-  const [nextId, setNextId] = useState(2);
 
   const handleAddField = () => {
     const newField = { id: nextId, value: "" };
@@ -51,8 +56,12 @@ function Add() {
     setFields(updatedFields);
   };
 
+  const handleChange = (event) => {
+    setGender(event.target.value);
+  };
+
   return (
-    <MDBox>
+    <Box>
       <Box sx={{ marginBottom: "15px" }}>
         <Button
           onClick={() => setOpen(true)}
@@ -77,12 +86,9 @@ function Add() {
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="user-view-edit"
         sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
-        aria-describedby="user-view-edit-description"
       >
-        <DialogTitle>Add Teacher profile </DialogTitle>
-
+        <Typography variant="h3">Add Teacher Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
             <IconButton
@@ -92,116 +98,96 @@ function Add() {
               <CloseIcon />
             </IconButton>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("firstname", { required: "Please enter a name" })}
+                  {...register("name", { required: "Please enter a Name" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
-                  label="First Name"
-                  helperText={errors?.firstname?.message}
-                  error={errors?.firstname}
+                  label="Name"
+                  helperText={errors?.name?.message}
+                  error={errors?.name}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("lastname", { required: "Please enter a name" })}
+                  {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
-                  label="Last Name"
-                  helperText={errors?.lastname?.message}
-                  error={errors?.lastname}
+                  label="Contact Number"
+                  helperText={errors?.contactNumber?.message}
+                  error={errors?.contactNumber}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select label="Age" value={gender} onChange={handleChange}>
+                    <MenuItem value={10}>Male</MenuItem>
+                    <MenuItem value={20}>Female</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("Email", { required: "Please enter email id " })}
+                  {...register("email", { required: "Please enter Email ID" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Email ID"
-                  helperText={errors.Email?.message}
-                  error={errors?.Email}
+                  helperText={errors.email?.message}
+                  error={errors?.email}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Address", { required: "Please enter a address" })}
-                  fullWidth
-                  type="text"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Address"
-                  helperText={errors.Address?.message}
-                  error={errors.Address}
-                />
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("joinDate")}
+                    label="Join Date"
+                    value={watch("joinDate")}
+                    onChange={(value) => setValue("joinDate", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
               </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("MobileNo", { required: "Please enter a mobile No" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Contact Number"
-                  helperText={errors?.MobileNo?.message}
-                  error={errors?.MobileNo}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("PinCode", { required: "Please enter Pincode" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Pincode"
-                  helperText={errors?.PinCode?.message}
-                  error={errors?.PinCode}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("JoinDate", { required: "Please enter Date" })}
-                  fullWidth
-                  type="Date"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  helperText={errors?.JoinDate?.message}
-                  error={errors?.JoinDate}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
                   fullWidth
                   label="Experience"
-                  type="text"
-                  {...register("experience", { required: "Please filed experince " })}
-                  error={!!errors.experience}
+                  {...register("experience", { required: "Please filed Experince" })}
+                  error={errors?.experience}
                   helperText={errors.experience?.message}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
+                  {...register("address", { required: "Please enter a Address" })}
                   fullWidth
-                  type="Date"
-                  {...register("dob", { required: "Please enter dob " })}
-                  error={!!errors.dob}
-                  helperText={errors.dob?.message}
+                  type="text"
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Address"
+                  helperText={errors.address?.message}
+                  error={errors.address}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
                   fullWidth
                   type="file"
@@ -210,7 +196,7 @@ function Add() {
                   helperText={errors.photo?.message}
                 />
               </Grid>
-              <Grid item xs={12} sm={12}>
+              <Grid item sm={12}>
                 {fields.map((field) => (
                   <Box sx={{ display: "flex" }}>
                     <Box key={field.id}>
@@ -237,13 +223,13 @@ function Add() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="outlined" color="secondary" onClick={handleClose}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Add;

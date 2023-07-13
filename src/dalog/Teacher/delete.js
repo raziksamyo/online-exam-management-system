@@ -4,7 +4,6 @@ import {
   DialogActions,
   DialogContent,
   Typography,
-  Button,
   IconButton,
   DialogTitle,
 } from "@mui/material";
@@ -12,6 +11,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import MDBox from "components/MDBox";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import CloseIcon from "@mui/icons-material/Close";
+import MDButton from "components/MDButton";
 
 function Delete(props) {
   console.log("props", props);
@@ -32,10 +32,9 @@ function Delete(props) {
       <Dialog
         onClose={() => setIsOpen(false)}
         open={isOpen}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 430, padding: [2, 3] } }}
       >
-        <DialogTitle sx={{ textAlign: "center", color: "orange", fontSize: "42px" }}>
+        <DialogTitle sx={{ textAlign: "center", color: "orange", fontSize: "50px" }}>
           <ReportProblemOutlinedIcon />
         </DialogTitle>
         <DialogContent>
@@ -49,12 +48,12 @@ function Delete(props) {
           <Typography variant="subtitle2">You can &apos; undo this operation</Typography>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => setIsOpen(false)}>
+          <MDButton variant="contained" color="success" onClick={() => setIsOpen(false)}>
             No
-          </Button>
-          <Button variant="contained" color="error">
+          </MDButton>
+          <MDButton variant="contained" color="error">
             Yes
-          </Button>
+          </MDButton>
         </DialogActions>
       </Dialog>
     </MDBox>
