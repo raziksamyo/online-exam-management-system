@@ -76,7 +76,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           key={key}
           target="_blank"
           rel="noreferrer"
-          sx={{ textDecoration: "none" }}
+          sx={{ textDecoration: "none !important" }}
         >
           <SidenavCollapse
             name={name}

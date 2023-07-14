@@ -1,212 +1,199 @@
 import {
   Grid,
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
   TextField,
-  DialogTitle,
+  IconButton,
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import CloseIcon from "@mui/icons-material/Close";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 
 function Edit() {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [gender, setGender] = useState("");
   const {
     handleSubmit,
     register,
     setValue,
+    watch,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+  };
+  const handleChange = (event) => {
+    setGender(event.target.value);
+  };
+
   return (
-    <MDBox>
-      <IconButton
-        onClick={() => setOpen(true)}
-        color="success"
-        sx={{
-          "&:hover": {
-            backgroundColor: "rgba(96, 233, 101, 0.18)",
-          },
-        }}
-      >
-        <BorderColorOutlinedIcon />
-      </IconButton>
+    <Box>
+      <Box sx={{ marginBottom: "15px" }}>
+        <IconButton
+          onClick={() => setOpen(true)}
+          color="success"
+          sx={{
+            "&:hover": {
+              backgroundColor: "rgba(96, 233, 101, 0.18)",
+            },
+          }}
+        >
+          <BorderColorOutlinedIcon />
+        </IconButton>
+      </Box>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="user-view-edit"
-        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 700, padding: [2, 3] } }}
-        aria-describedby="user-view-edit-description"
+        sx={{ "& .MuiPaper-root": { width: "100%", maxWidth: 750, p: [2, 3] } }}
       >
-        <DialogTitle>Add Personal information for Teacher </DialogTitle>
+        <Typography variant="h3">Add Teacher Details</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent sx={{ overflow: "hidden" }}>
+          <DialogContent>
             <IconButton
               sx={{ position: "absolute", right: "1rem", top: "1rem" }}
-              onClick={() => setOpen(false)}
+              onClick={handleClose}
             >
               <CloseIcon />
             </IconButton>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("name", { required: "Please enter a name" })}
+                  {...register("name", { required: "Please enter a Name" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
                   label="Name"
-                  defaultValue="Mohit"
-                  helperText={errors.firstname?.message}
-                  error={errors.firstname}
+                  helperText={errors?.name?.message}
+                  error={errors?.name}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
                 <TextField
-                  {...register("lastname", { required: "Please enter a name" })}
+                  {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue(e.target.value);
                   }}
-                  label="lastName"
-                  defaultValue="Mohit"
-                  helperText={errors.lastname?.message}
-                  error={errors.lastname}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Email", { required: "Please enter email id " })}
-                  fullWidth
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Email ID"
-                  defaultValue="mg08312@gmail.com"
-                  helperText={errors.Email?.message}
-                  error={errors?.Email}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Address", { required: "Please enter a address" })}
-                  fullWidth
-                  type="text"
-                  defaultValue="162 ambey nagar Sukhilya"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Address"
-                  helperText={errors.Address?.message}
-                  error={errors.Address}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("Qualification", { required: "Please enter a qualificaton" })}
-                  fullWidth
-                  defaultValue="BTech(Computer Science )"
-                  type="text"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Qualification"
-                  helperText={errors?.Qualification?.message}
-                  error={errors.Qualification}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("MobileNo", { required: "Please enter a mobile No" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  defaultValue="9039512378"
                   label="Contact Number"
-                  helperText={errors?.MobileNo?.message}
-                  error={errors?.MobileNo}
+                  helperText={errors?.contactNumber?.message}
+                  error={errors?.contactNumber}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("PinCode", { required: "Please enter Pincode" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Pincode"
-                  defaultValue="452010"
-                  helperText={errors?.PinCode?.message}
-                  error={errors?.PinCode}
-                />
+              <Grid item sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select
+                    label="Age"
+                    value={gender}
+                    {...register("Gender", { required: "Gender is required" })}
+                    onChange={handleChange}
+                    sx={{ padding: "12px" }}
+                    error={!!errors?.Gender}
+                  >
+                    <MenuItem value={10}>Male</MenuItem>
+                    <MenuItem value={20}>Female</MenuItem>
+                  </Select>
+                  {errors?.Gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  )}
+                </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MobileDatePicker
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="Date of Birth"
+                    value={watch("dob")}
+                    onChange={(value) => setValue("dob", value)}
                     sx={{ width: "100%" }}
-                    defaultValue={dayjs(selectedDate)}
-                    label="Select a date"
-                    {...register("date", { required: "Date is required" })}
-                    onChange={(date) => {
-                      setValue("date", date, { shouldValidate: true });
-                      setSelectedDate(date);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                      />
-                    )}
                   />
                 </LocalizationProvider>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={6}>
+                <TextField
+                  {...register("email", { required: "Please enter Email ID" })}
+                  fullWidth
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Email ID"
+                  helperText={errors.email?.message}
+                  error={errors?.email}
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    {...register("joinDate")}
+                    label="Join Date"
+                    value={watch("joinDate")}
+                    onChange={(value) => setValue("joinDate", value)}
+                    sx={{ width: "100%" }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item sm={6}>
+                <TextField
+                  fullWidth
+                  label="Experience"
+                  {...register("experience", { required: "Please filed Experince" })}
+                  error={errors?.experience}
+                  helperText={errors.experience?.message}
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <TextField
+                  {...register("address", { required: "Please enter a Address" })}
+                  fullWidth
+                  type="text"
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Address"
+                  helperText={errors.address?.message}
+                  error={errors.address}
+                />
+              </Grid>
+              <Grid item sm={6}>
                 <TextField
                   fullWidth
                   type="file"
                   {...register("photo", { required: "Please select a photo" })}
                   error={!!errors.photo}
                   helperText={errors.photo?.message}
+                  label="Upload photo"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item sm={12}>
                 <TextField
-                  fullWidth
-                  defaultValue="2years"
-                  type="text"
-                  label="Experince"
-                  {...register("experince", { required: "PLease add experience" })}
-                  error={!!errors.experince}
-                  helperText={errors?.experince?.meassage}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
+                  {...register("qualification", { required: "Please enter a qualification" })}
                   fullWidth
                   type="text"
-                  label="Gender"
-                  defaultValue="Male"
-                  {...register("gender", "Please add gender")}
-                  error={!!errors.meassage}
-                  helperText={errors?.gender?.meassage}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Qualification"
+                  helperText={errors?.qualification?.message}
+                  error={!!errors.qualification}
                 />
               </Grid>
             </Grid>
@@ -215,13 +202,13 @@ function Edit() {
             <MDButton type="submit" variant="contained" sx={{ mr: 1 }} color="success">
               Submit
             </MDButton>
-            <MDButton variant="contained" color="error" onClick={() => setOpen(false)}>
+            <MDButton variant="contained" color="error" onClick={handleClose}>
               Discard
             </MDButton>
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Edit;

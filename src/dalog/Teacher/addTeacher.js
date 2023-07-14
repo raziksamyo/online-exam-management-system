@@ -12,6 +12,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
@@ -30,12 +31,13 @@ function Add() {
     handleSubmit,
     register,
     setValue,
-    watch,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
 
   const handleClose = () => {
@@ -55,11 +57,13 @@ function Add() {
     );
     setFields(updatedFields);
   };
+  const handeldatechange = (selectedDate) => {
+    setValue("DOB", selectedDate);
+  };
 
   const handleChange = (event) => {
     setGender(event.target.value);
   };
-
   return (
     <Box>
       <Box sx={{ marginBottom: "15px" }}>
@@ -125,21 +129,34 @@ function Add() {
               <Grid item sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
-                  <Select label="Age" value={gender} onChange={handleChange}>
+                  <Select
+                    label="Age"
+                    value={gender}
+                    {...register("Gender", { required: "Gender is required" })}
+                    onChange={handleChange}
+                    sx={{ padding: "12px" }}
+                    error={!!errors?.Gender}
+                  >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
                   </Select>
+                  {errors?.Gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    {...register("dob")}
-                    label="Date of Birth"
-                    value={watch("dob")}
-                    onChange={(value) => setValue("dob", value)}
-                    sx={{ width: "100%" }}
-                  />
+                  <FormControl error={!!errors.DOB} fullWidth>
+                    <DatePicker
+                      {...register("DOB", { required: "Enter a date" })}
+                      label="Date of Birth"
+                      value={watch("DOB")}
+                      onChange={handeldatechange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                    {errors.DOB && <FormHelperText>{errors.DOB.message}</FormHelperText>}
+                  </FormControl>
                 </LocalizationProvider>
               </Grid>
               <Grid item sm={6}>
@@ -194,6 +211,7 @@ function Add() {
                   {...register("photo", { required: "Please select a photo" })}
                   error={!!errors.photo}
                   helperText={errors.photo?.message}
+                  label="upload photo"
                 />
               </Grid>
               <Grid item sm={12}>

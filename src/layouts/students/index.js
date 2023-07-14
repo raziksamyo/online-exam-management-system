@@ -104,6 +104,9 @@ function Students() {
               "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
                 outline: "none !important",
               },
+              "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within": {
+                outline: "none !important",
+              },
             }}
             rows={rows}
             columns={columns}

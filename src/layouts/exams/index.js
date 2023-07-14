@@ -103,7 +103,18 @@ function Exams() {
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
               outline: "none !important",
             },
+            "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within": {
+              outline: "none !important",
+            },
           }}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
         />
       </MDBox>
     </DashboardLayout>

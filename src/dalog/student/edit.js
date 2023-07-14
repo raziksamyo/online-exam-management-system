@@ -10,8 +10,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
+  Box,
 } from "@mui/material";
-import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -28,17 +29,19 @@ function Edit() {
     register,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("Data", data);
+    reset();
   };
 
   const handleChange = (event) => {
     setGender(event.target.value);
   };
   return (
-    <MDBox>
+    <Box>
       <IconButton
         onClick={() => setOpen(true)}
         color="success"
@@ -73,8 +76,8 @@ function Edit() {
                     setValue(e.target.value);
                   }}
                   label="Name"
-                  helperText={errors?.name?.message}
-                  error={errors?.name}
+                  helperText={errors?.Name?.message}
+                  error={errors?.Name}
                 />
               </Grid>
               <Grid item sm={6}>
@@ -92,19 +95,30 @@ function Edit() {
               <Grid item sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
-                  <Select label="Age" value={gender} onChange={handleChange}>
+                  <Select
+                    label="Age"
+                    {...register("Gender", { required: "PLease selected Gender" })}
+                    error={errors?.Gender}
+                    helperText={errors?.Gender?.message}
+                    value={gender}
+                    onChange={handleChange}
+                    sx={{ padding: "12px" }}
+                  >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
                   </Select>
+                  {errors?.Gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
-                    {...register("dob")}
-                    label="Date of Birth"
-                    value={watch("dob")}
-                    onChange={(value) => setValue("dob", value)}
+                    {...register("joining")}
+                    label="Join Date"
+                    value={watch("joining")}
+                    onChange={(value) => setValue("joining", value)}
                     sx={{ width: "100%" }}
                   />
                 </LocalizationProvider>
@@ -181,7 +195,7 @@ function Edit() {
           </DialogActions>
         </form>
       </Dialog>
-    </MDBox>
+    </Box>
   );
 }
 export default Edit;

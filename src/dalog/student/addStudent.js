@@ -12,6 +12,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  FormHelperText,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
@@ -112,22 +113,47 @@ function Add() {
               <Grid item sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
-                  <Select label="Age" value={gender} onChange={handleChange}>
+                  <Select
+                    label="Age"
+                    {...register("Gender", { required: "PLease selected Teacher Name" })}
+                    error={errors?.Gender}
+                    helperText={errors?.Gender?.message}
+                    value={gender}
+                    onChange={handleChange}
+                    sx={{ padding: "12px" }}
+                  >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
                   </Select>
+                  {errors?.Gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    {...register("dob")}
-                    label="Date of Birth"
-                    value={watch("dob")}
-                    onChange={(value) => setValue("dob", value)}
-                    sx={{ width: "100%" }}
-                  />
-                </LocalizationProvider>
+                <FormControl>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      {...register("joining", { required: "Joining date is required" })}
+                      label="Join Date"
+                      error={!!errors?.joining}
+                      onChange={(value) => setValue("joining", value)}
+                      sx={{ width: "100%" }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          error={!!errors?.joining}
+                          helperText={errors?.joining?.message}
+                        />
+                      )}
+                    />
+                    {errors?.joining && (
+                      <FormHelperText sx={{ color: "red" }}>
+                        {errors?.joining?.message}
+                      </FormHelperText>
+                    )}
+                  </LocalizationProvider>
+                </FormControl>
               </Grid>
               <Grid item sm={6}>
                 <TextField
