@@ -15,29 +15,58 @@ import {
   FormHelperText,
 } from "@mui/material";
 import MDButton from "components/MDButton";
-import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import axios from "axios";
 
 function Add() {
   const [open, setOpen] = useState(false);
   const [gender, setGender] = useState("");
-  const [fields, setFields] = useState([{ id: 1, value: "" }]);
-  const [nextId, setNextId] = useState(2);
   const {
     handleSubmit,
     register,
     setValue,
     reset,
+    control,
     watch,
     formState: { errors },
   } = useForm();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "qualification",
+  });
   const onSubmit = (data) => {
-    console.log("Data", data);
+    console.log("data", data);
+
+    const payload = {
+      name: data.name,
+      contactNumber: data.contactNumber,
+      gender: data.gender,
+      email: data.email,
+      experience: data.experience,
+      joinDate: data.joinDate,
+      dob: data.dob,
+      qualification: data.qualification,
+      address: data.address,
+    };
+    console.log("Payload", payload);
+    axios
+      .post("http://localhost:5000/api/admin/teacher/add", payload)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("errrors", err);
+      });
+    console.log("Payload", payload);
     reset();
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -45,21 +74,19 @@ function Add() {
     reset();
   };
 
-  const handleAddField = () => {
-    const newField = { id: nextId, value: "" };
-    setFields([...fields, newField]);
-    setNextId(nextId + 1);
-  };
+  // const handleAddField = () => {
+  //   const newField = { id: nextId, value: "" };
+  //   setFields([...fields, newField]);
+  //   setNextId(nextId + 1);
+  //   setQualification(newField.value);
+  // };
 
-  const handleFieldChange = (id, event) => {
-    const updatedFields = fields.map((field) =>
-      field.id === id ? { ...field, value: event.target.value } : field
-    );
-    setFields(updatedFields);
-  };
-  const handeldatechange = (selectedDate) => {
-    setValue("DOB", selectedDate);
-  };
+  // const handleFieldChange = (id, event) => {
+  //   const updatedFields = fields.map((field) =>
+  //     field.id === id ? { ...field, value: event.target.value } : field
+  //   );
+  //   setFields(updatedFields);
+  // };
 
   const handleChange = (event) => {
     setGender(event.target.value);
@@ -132,13 +159,13 @@ function Add() {
                   <Select
                     label="Age"
                     value={gender}
-                    {...register("Gender", { required: "Gender is required" })}
+                    {...register("gender", { required: "Gender is required" })}
                     onChange={handleChange}
                     sx={{ padding: "12px" }}
                     error={!!errors?.Gender}
                   >
-                    <MenuItem value={10}>Male</MenuItem>
-                    <MenuItem value={20}>Female</MenuItem>
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="female">Female</MenuItem>
                   </Select>
                   {errors?.Gender && (
                     <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
@@ -146,17 +173,16 @@ function Add() {
                 </FormControl>
               </Grid>
               <Grid item sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <FormControl error={!!errors.DOB} fullWidth>
-                    <DatePicker
-                      {...register("DOB", { required: "Enter a date" })}
-                      label="Date of Birth"
-                      value={watch("DOB")}
-                      onChange={handeldatechange}
-                      renderInput={(params) => <TextField {...params} />}
-                    />
-                    {errors.DOB && <FormHelperText>{errors.DOB.message}</FormHelperText>}
-                  </FormControl>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    {...register("dob")}
+                    label="DOB"
+                    defaultValue={dayjs(watch("dob"))}
+                    onChange={(e) => {
+                      setValue("dob", e.$d);
+                    }}
+                    sx={{ width: "100%" }}
+                  />
                 </LocalizationProvider>
               </Grid>
               <Grid item sm={6}>
@@ -164,7 +190,7 @@ function Add() {
                   {...register("email", { required: "Please enter Email ID" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.value);
+                    setValue("email", e.target.value);
                   }}
                   label="Email ID"
                   helperText={errors.email?.message}
@@ -172,12 +198,14 @@ function Add() {
                 />
               </Grid>
               <Grid item sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     {...register("joinDate")}
                     label="Join Date"
-                    value={watch("joinDate")}
-                    onChange={(value) => setValue("joinDate", value)}
+                    defaultValue={dayjs(watch("joinDate"))}
+                    onChange={(e) => {
+                      setValue("joinDate", e.$d);
+                    }}
                     sx={{ width: "100%" }}
                   />
                 </LocalizationProvider>
@@ -204,36 +232,36 @@ function Add() {
                   error={errors.address}
                 />
               </Grid>
-              <Grid item sm={6}>
+              {/* <Grid item sm={6}>
                 <TextField
                   fullWidth
                   type="file"
-                  {...register("photo", { required: "Please select a photo" })}
+                  {...register("photo")}
                   error={!!errors.photo}
                   helperText={errors.photo?.message}
                   label="upload photo"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item sm={12}>
-                {fields.map((field) => (
-                  <Box sx={{ display: "flex" }}>
-                    <Box key={field.id}>
-                      <TextField
-                        sx={{
-                          width: { sm: 200, md: 300, lg: 560 },
-                          mb: 2,
-                        }}
-                        type="text"
-                        value={field.value}
-                        label="Qualifications"
-                        onChange={(event) => handleFieldChange(field.id, event)}
-                      />
-                    </Box>
-                    <Box>
-                      {field.value ? <Button onClick={handleAddField}>Add Field</Button> : ""}
-                    </Box>
+                {fields.map((field, index) => (
+                  <Box key={field.id}>
+                    <TextField
+                      type="text"
+                      {...register(`qualification[${index}].name`)}
+                      onChange={(e) => {
+                        setValue("qualification", e.target.value);
+                      }}
+                    />
+
+                    <Button type="button" onClick={() => remove(index)}>
+                      Remove
+                    </Button>
                   </Box>
                 ))}
+
+                <Button type="button" onClick={() => append({ name: "" })}>
+                  Add Field
+                </Button>
               </Grid>
             </Grid>
           </DialogContent>
