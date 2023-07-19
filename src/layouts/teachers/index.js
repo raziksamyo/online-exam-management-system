@@ -13,30 +13,9 @@ import axios from "axios";
 
 function Teachers() {
   const [data, setData] = useState([]);
-  const columns = [
-    { flex: 0.18, field: "id", headerName: "#", minWidth: 100 },
-    { flex: 0.18, field: "name", headerName: "Name", minWidth: 150 },
-    { flex: 0.25, field: "email", headerName: "Email", minWidth: 200 },
-    { flex: 0.17, field: "gender", headerName: "Gender", minWidth: 120 },
-    { flex: 0.17, field: "contactNo", headerName: "Mobile", minWidth: 200 },
-    { flex: 0.18, field: "joinDate", headerName: "Joining Date", width: 200 },
-    {
-      flex: 0.14,
-      field: "action",
-      headerName: "Action",
-      width: 350,
-      renderCell: (params) => (
-        <Box sx={{ display: "flex" }}>
-          <View data={params.row} />
-          <Edit editData={params.row} />
-          <Delete data={params.row} />
-        </Box>
-      ),
-    },
-  ];
-
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+  const getDatalistTeacher = () => {
+    console.log("Enter");
     axios
       .get("http://localhost:5000/api/admin/teacher/list")
       .then((response) => {
@@ -49,6 +28,30 @@ function Teachers() {
         // Handle any errors that occurred during the request
         console.error("Erros", error);
       });
+  };
+  const columns = [
+    { flex: 0.18, field: "id", headerName: "#", minWidth: 100 },
+    { flex: 0.18, field: "name", headerName: "Name", minWidth: 150 },
+    { flex: 0.25, field: "email", headerName: "Email", minWidth: 200 },
+    { flex: 0.17, field: "gender", headerName: "Gender", minWidth: 120 },
+    { flex: 0.17, field: "contactNumber", headerName: "Mobile", minWidth: 200 },
+    { flex: 0.18, field: "joinDate", headerName: "Joining Date", width: 200 },
+    {
+      flex: 0.14,
+      field: "action",
+      headerName: "Action",
+      width: 350,
+      renderCell: (params) => (
+        <Box sx={{ display: "flex" }}>
+          <View data={params.row} />
+          <Edit editData={params.row} />
+          <Delete data={params.row} list={getDatalistTeacher} />
+        </Box>
+      ),
+    },
+  ];
+  useEffect(() => {
+    getDatalistTeacher();
   }, []);
   const transformedData = data.map((row, index) => ({
     ...row,

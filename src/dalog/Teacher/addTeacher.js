@@ -43,16 +43,18 @@ function Add() {
   });
   const onSubmit = (data) => {
     console.log("data", data);
-
+    const filterQualification = data.qualification.map((item) => item.name);
+    // console.log("qualification", qualification);
     const payload = {
       name: data.name,
-      contactNumber: data.contactNumber,
+      contactNumber: Number(data.contactNumber),
       gender: data.gender,
       email: data.email,
-      experience: data.experience,
+      password: Number(data.password),
+      experience: Number(data.experience),
       joinDate: data.joinDate,
       dob: data.dob,
-      qualification: data.qualification,
+      qualification: filterQualification,
       address: data.address,
     };
     console.log("Payload", payload);
@@ -154,6 +156,18 @@ function Add() {
                 />
               </Grid>
               <Grid item sm={6}>
+                <TextField
+                  {...register("password", { required: "Please enter a password" })}
+                  fullWidth
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Pssword"
+                  helperText={errors?.password?.message}
+                  error={errors?.password}
+                />
+              </Grid>
+              <Grid item sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
                   <Select
@@ -164,8 +178,8 @@ function Add() {
                     sx={{ padding: "12px" }}
                     error={!!errors?.Gender}
                   >
-                    <MenuItem value="Male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
+                    <MenuItem value="male">male</MenuItem>
+                    <MenuItem value="female">memale</MenuItem>
                   </Select>
                   {errors?.Gender && (
                     <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
@@ -249,7 +263,7 @@ function Add() {
                       type="text"
                       {...register(`qualification[${index}].name`)}
                       onChange={(e) => {
-                        setValue("qualification", e.target.value);
+                        setValue(`qualification[${index}].name`, e.target.value);
                       }}
                     />
 
@@ -259,7 +273,7 @@ function Add() {
                   </Box>
                 ))}
 
-                <Button type="button" onClick={() => append({ name: "" })}>
+                <Button type="button" onClick={() => append({ name: "qualification" })}>
                   Add Field
                 </Button>
               </Grid>
