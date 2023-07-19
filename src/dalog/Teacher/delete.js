@@ -16,12 +16,12 @@ import PropTypes from "prop-types";
 import axios from "axios";
 
 function DeleteTeacher({ data, list }) {
-  console.log("Data", data);
+  // console.log("Data", data);
   const { _id } = data;
 
   const [isOpen, setIsOpen] = useState(false);
   const handelClick = () => {
-    axios.delete(`http://localhost:5000/api/admin/teacher/delete/${_id}`, data).then((res) => {
+    axios.post(`http://localhost:5000/api/admin/teacher/delete/${_id}`).then((res) => {
       console.log("Res", res);
     });
     setIsOpen(false);

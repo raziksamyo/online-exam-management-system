@@ -44,7 +44,7 @@ function Teachers() {
       renderCell: (params) => (
         <Box sx={{ display: "flex" }}>
           <View data={params.row} />
-          <Edit editData={params.row} />
+          <Edit editData={params.row} list={getDatalistTeacher} />
           <Delete data={params.row} list={getDatalistTeacher} />
         </Box>
       ),

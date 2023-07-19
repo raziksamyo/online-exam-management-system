@@ -14,7 +14,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import MDButton from "components/MDButton";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
@@ -22,11 +22,13 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import axios from "axios";
 
-function Edit({ editData }) {
+function Edit({ editData, list }) {
   const [open, setOpen] = useState(false);
+  const { _id } = editData;
   // const [gender, setGender] = useState("");
-  console.log("data", editData);
+  console.log("data", editData.qualification);
   const Dob = editData.dob;
   const JoinDate = editData.joinDate;
 
@@ -35,15 +37,42 @@ function Edit({ editData }) {
     register,
     setValue,
     reset,
+    control,
+    getValues,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("Data", data);
+    const payload = {
+      name: data.name,
+      email: data.email,
+      gender: data.gender,
+      contactNumber: data.contactNumber,
+      dob: data.dob,
+      joinDate: data.joinDate,
+      password: data.password,
+      address: data.address,
+      qualification: data.qualification,
+    };
+    axios
+      .post(`http://localhost:5000/api/admin/teacher/update/${_id}`, payload)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("errrors", err);
+      });
+    setOpen(false);
+    list();
   };
 
   const handleClose = () => {
     setOpen(false);
     reset();
+  };
+  const handleItemChange = (index, value) => {
+    const qualifications = [...getValues("qualification")];
+    qualifications[index] = value;
+    setValue("qualification", qualifications);
   };
   // const handleChange = (event) => {
   //   setGender(event.target.value);
@@ -103,6 +132,20 @@ function Edit({ editData }) {
                   label="Contact Number"
                   helperText={errors?.contactNumber?.message}
                   error={errors?.contactNumber}
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <TextField
+                  defaultValue={editData.password}
+                  {...register("password", { required: "Please enter a password" })}
+                  fullWidth
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Password"
+                  helperText={errors?.password?.message}
+                  error={errors?.password}
+                  type="password"
                 />
               </Grid>
               <Grid item sm={6}>
@@ -186,27 +229,24 @@ function Edit({ editData }) {
                   error={errors.address}
                 />
               </Grid>
-              <Grid item sm={6}>
-                <TextField
-                  fullWidth
-                  type="file"
-                  {...register("photo", { required: "Please select a photo" })}
-                  error={!!errors.photo}
-                  helperText={errors.photo?.message}
-                  label="Upload photo"
-                />
-              </Grid>
               <Grid item sm={12}>
-                <TextField
-                  {...register("qualification", { required: "Please enter a qualification" })}
-                  fullWidth
-                  type="text"
-                  onChange={(e) => {
-                    setValue(e.target.value);
-                  }}
-                  label="Qualification"
-                  helperText={errors?.qualification?.message}
-                  error={!!errors.qualification}
+                <Controller
+                  name="qualification"
+                  control={control}
+                  defaultValue={editData.qualification}
+                  render={({ field }) => (
+                    <Grid container columnSpacing={2}>
+                      {field.value.map((item, index) => (
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            value={item}
+                            onChange={(e) => handleItemChange(index, e.target.value)}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  )}
                 />
               </Grid>
             </Grid>
@@ -226,6 +266,20 @@ function Edit({ editData }) {
 }
 Edit.propTypes = {
   editData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    contactNumber: PropTypes.number.isRequired,
+    password: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    dob: PropTypes.string.isRequired,
+    joinDate: PropTypes.string.isRequired,
+    experience: PropTypes.number.isRequired,
+    qualification: PropTypes.arrayOf(PropTypes.string).isRequired, // Add other properties as needed
+  }).isRequired,
+  list: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     gender: PropTypes.string.isRequired,
     contactNumber: PropTypes.number.isRequired,
@@ -234,6 +288,8 @@ Edit.propTypes = {
     dob: PropTypes.string.isRequired,
     joinDate: PropTypes.string.isRequired,
     experience: PropTypes.number.isRequired,
+    qualification: PropTypes.arrayOf(PropTypes.string).isRequired,
+
     // Add other properties as needed
   }).isRequired,
 };

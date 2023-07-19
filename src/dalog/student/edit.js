@@ -14,32 +14,50 @@ import {
   Box,
 } from "@mui/material";
 import MDButton from "components/MDButton";
+import { PropTypes } from "prop-types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import dayjs from "dayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 
-function Edit() {
+function Edit({ editData, list }) {
   const [open, setOpen] = useState(false);
-  const [gender, setGender] = useState("");
+  const { _id } = editData;
+  const Dob = editData.dob;
   const {
     handleSubmit,
     register,
     setValue,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("Data", data);
+    const payload = {
+      name: data.name,
+      email: data.email,
+      dob: data.dob,
+      password: data.password,
+      gender: data.gender,
+      address: data.address,
+      contactNumber: data.contactNumber,
+    };
+    axios
+      .post(`http://localhost:5000/api/admin/student/update/${_id}`, payload)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("errrors", err);
+      });
     reset();
+    list();
+    setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
-  };
   return (
     <Box>
       <IconButton
@@ -70,12 +88,13 @@ function Edit() {
             <Grid container spacing={2}>
               <Grid item sm={6}>
                 <TextField
-                  {...register("Name", { required: "Please enter a Frist Name" })}
+                  {...register("name", { required: "Please enter a name" })}
                   fullWidth
                   onChange={(e) => {
                     setValue(e.target.value);
                   }}
                   label="Name"
+                  defaultValue={editData.name}
                   helperText={errors?.Name?.message}
                   error={errors?.Name}
                 />
@@ -85,9 +104,10 @@ function Edit() {
                   {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.value);
+                    setValue(+e.target.value);
                   }}
                   label="Contact Number"
+                  defaultValue={editData.contactNumber}
                   helperText={errors?.contactNumber?.message}
                   error={errors?.contactNumber}
                 />
@@ -97,31 +117,20 @@ function Edit() {
                   <InputLabel>Gender</InputLabel>
                   <Select
                     label="Age"
-                    {...register("Gender", { required: "PLease selected Gender" })}
-                    error={errors?.Gender}
-                    helperText={errors?.Gender?.message}
-                    value={gender}
-                    onChange={handleChange}
+                    {...register("gender", { required: "PLease selected Gender" })}
+                    error={errors?.gender}
+                    helperText={errors?.gender?.message}
+                    defaultValue={editData.gender}
+                    onChange={(e) => setValue(e.target.value)}
                     sx={{ padding: "12px" }}
                   >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
                   </Select>
-                  {errors?.Gender && (
-                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  {errors?.gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.gender?.message}</FormHelperText>
                   )}
                 </FormControl>
-              </Grid>
-              <Grid item sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    {...register("joining")}
-                    label="Join Date"
-                    value={watch("joining")}
-                    onChange={(value) => setValue("joining", value)}
-                    sx={{ width: "100%" }}
-                  />
-                </LocalizationProvider>
               </Grid>
               <Grid item sm={6}>
                 <TextField
@@ -132,16 +141,20 @@ function Edit() {
                   }}
                   label="Email ID"
                   helperText={errors.email?.message}
+                  defaultValue={editData.email}
                   error={errors?.email}
                 />
               </Grid>
               <Grid item sm={6}>
                 <TextField
                   fullWidth
-                  label="Hight Qualifications"
-                  {...register("qualifications", { required: "Please filed Hight Qualifications" })}
-                  error={errors?.qualifications}
-                  helperText={errors.qualifications?.message}
+                  label="Password"
+                  {...register("password", { required: "Pleas filled password" })}
+                  error={errors?.password}
+                  helperText={errors?.password?.message}
+                  onChange={(e) => {
+                    setValue(+e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item sm={6}>
@@ -159,29 +172,16 @@ function Edit() {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     {...register("dob")}
+                    defaultValue={editData.dob}
                     label="Date of Birth"
-                    value={watch("dob")}
+                    value={dayjs(Dob)}
                     onChange={(value) => setValue("dob", value)}
                     sx={{ width: "100%" }}
                   />
                 </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("education", { required: "Please enter a Education" })}
-                  fullWidth
-                  defaultValue="BTech(Computer Science )"
-                  type="text"
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  label="Education"
-                  helperText={errors?.education?.message}
-                  error={errors.education}
-                />
               </Grid>
             </Grid>
           </DialogContent>
@@ -198,4 +198,26 @@ function Edit() {
     </Box>
   );
 }
+
+Edit.propTypes = {
+  editData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    contactNumber: PropTypes.number.isRequired,
+    password: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    dob: PropTypes.string.isRequired,
+  }).isRequired,
+  list: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    contactNumber: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    dob: PropTypes.string.isRequired,
+  }).isRequired,
+};
 export default Edit;

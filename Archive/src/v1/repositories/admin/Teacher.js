@@ -9,10 +9,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(
-      null,
-      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-    );
+    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 
@@ -95,24 +92,9 @@ module.exports.teacherList = async function (req, next) {
   );
 };
 module.exports.delete = async function (req, res, next) {
-  // console.log("Id", req.params.id);
-  const teacherData = {
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    gender: req.body.gender,
-    contactNumber: req.body.contactNumber,
-    experience: req.body.experience,
-    joinDate: req.body.joinDate,
-    dob: req.body.dob,
-    address: req.body.address,
-    qualification: req.body.qualification,
-  };
-  // console.log("teacher", teacherData);
-  TeacherModels.deleteOne({ _id: req.params.id }, teacherData).then(function (
-    data,
-    err
-  ) {
+  const documentid = req.params.id;
+  // console.log("Id", documentid);
+  TeacherModels.findByIdAndDelete(documentid).then(function (data, err) {
     if (err) {
       return next({
         status: 0,
@@ -132,4 +114,59 @@ module.exports.delete = async function (req, res, next) {
       message: trans.lang("message.teacher.delete_success"),
     });
   });
+};
+
+module.exports.update = async function (req, res, next) {
+  const teacherData = {
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    gender: req.body.gender,
+    contactNumber: req.body.contactNumber,
+    experience: req.body.experience,
+    joinDate: req.body.joinDate,
+    dob: req.body.dob,
+    address: req.body.address,
+    qualification: req.body.qualification,
+    status: 1,
+  };
+  const documentId = req.params.id;
+
+  TeacherModels.findByIdAndUpdate(documentId, teacherData, {
+    new: true,
+    useFindAndModify: false,
+  }).then(function (data, err) {
+    if (err) {
+      return next({
+        status: 0,
+        message: trans.lang("message.something_went_wrong"),
+      });
+    }
+    console.log("data", data);
+    if (!data) {
+      return next({
+        status: 0,
+        message: trans.lang("message.teacher.not_found"),
+      });
+    }
+
+    return next({
+      status: 1,
+      message: trans.lang("message.teacher.updated_success"),
+    });
+  });
+  // Model.findByIdAndUpdate(documentId, teacherData, { new: true, useFindAndModify: false })
+  //   .then((updatedDocument) => {
+  //     if (!updatedDocument) {
+  //       // Document with the given ID not found
+  //       console.log("Document not found.");
+  //     } else {
+  //       // Document updated successfully
+  //       console.log("Document updated successfully:", updatedDocument);
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     // Handle the error
+  //     console.error("Error occurred during update:", error);
+  //   });
 };

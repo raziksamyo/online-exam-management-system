@@ -24,12 +24,15 @@ const upload = multer({ dest: "uploads/" });
 const teacher_admin_controller = require("../controllers/admin/TeacherController");
 router.get("/teacher/list", teacher_admin_controller.list);
 router.post("/teacher/add", teacher_admin_controller.add);
-router.put("/teacher/update/:id", teacher_admin_controller.update);
+router.post("/teacher/update/:id", teacher_admin_controller.update);
 router.post("/teacher/delete/:id", teacher_admin_controller.delete);
 
 /* Student */
 const student_admin_controller = require("../controllers/admin/StudentController");
-// router.get('/student/list', student_admin_controller.list)
+router.get('/student/list', student_admin_controller.list)
 router.post("/student/add", student_admin_controller.add);
+router.post("/student/update/:id", student_admin_controller.update);
+router.post("/student/delete/:id", student_admin_controller.delete);
+
 
 module.exports = router;
