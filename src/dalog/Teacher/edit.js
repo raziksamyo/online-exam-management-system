@@ -47,6 +47,7 @@ function Edit({ editData, list }) {
       email: data.email,
       gender: data.gender,
       contactNumber: data.contactNumber,
+      experience: data.experience,
       dob: data.dob,
       joinDate: data.joinDate,
       password: data.password,
@@ -127,7 +128,7 @@ function Edit({ editData, list }) {
                   {...register("contactNumber", { required: "Please enter a Contact Number" })}
                   fullWidth
                   onChange={(e) => {
-                    setValue(e.target.value);
+                    setValue(+e.target.value);
                   }}
                   label="Contact Number"
                   helperText={errors?.contactNumber?.message}
@@ -213,6 +214,9 @@ function Edit({ editData, list }) {
                   {...register("experience", { required: "Please filed Experince" })}
                   error={errors?.experience}
                   helperText={errors.experience?.message}
+                  onChange={(e) => {
+                    setValue(+e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item sm={6}>

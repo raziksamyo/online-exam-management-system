@@ -29,10 +29,19 @@ router.post("/teacher/delete/:id", teacher_admin_controller.delete);
 
 /* Student */
 const student_admin_controller = require("../controllers/admin/StudentController");
-router.get('/student/list', student_admin_controller.list)
+router.get("/student/list", student_admin_controller.list);
 router.post("/student/add", student_admin_controller.add);
 router.post("/student/update/:id", student_admin_controller.update);
 router.post("/student/delete/:id", student_admin_controller.delete);
 
+const course_admin_controller = require("../controllers/admin/CoursesController");
+router.get("/course/list", course_admin_controller.list);
+router.post("/course/add", course_admin_controller.add);
+router.post("/course/update/:id", course_admin_controller.update);
+router.post("/course/delete/:id", course_admin_controller.delete);
+
+const exam_admin_controller = require("../controllers/admin/ExamController");
+router.get("/exam/list", exam_admin_controller.list);
+router.post("/exam/add", exam_admin_controller.add);
 
 module.exports = router;

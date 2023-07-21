@@ -75,7 +75,7 @@ module.exports.studentList = async function (req, next) {
 };
 module.exports.delete = async function (req, res, next) {
   const documentid = req.params.id;
-  // console.log("Id", documentid);
+  console.log("Id", documentid);
   StudentModels.findByIdAndDelete(documentid).then(function (data, err) {
     if (err) {
       return next({
@@ -87,7 +87,7 @@ module.exports.delete = async function (req, res, next) {
     if (!data) {
       return next({
         status: 0,
-        message: trans.lang("message.teacher.not_found"),
+        message: trans.lang("message.student.not_found"),
       });
     }
 
@@ -111,8 +111,8 @@ module.exports.update = async function (req, res, next) {
     status: 1,
   };
   const documentId = req.params.id;
-//   console.log("Data", studentData);
-//   console.log("Id", documentId);
+  //   console.log("Data", studentData);
+  //   console.log("Id", documentId);
   StudentModels.findByIdAndUpdate(documentId, studentData, {
     new: true,
     useFindAndModify: false,
@@ -136,18 +136,5 @@ module.exports.update = async function (req, res, next) {
       message: trans.lang("message.student_updated_success"),
     });
   });
-  // Model.findByIdAndUpdate(documentId, teacherData, { new: true, useFindAndModify: false })
-  //   .then((updatedDocument) => {
-  //     if (!updatedDocument) {
-  //       // Document with the given ID not found
-  //       console.log("Document not found.");
-  //     } else {
-  //       // Document updated successfully
-  //       console.log("Document updated successfully:", updatedDocument);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     // Handle the error
-  //     console.error("Error occurred during update:", error);
-  //   });
+  
 };

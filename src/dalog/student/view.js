@@ -1,10 +1,12 @@
 import { Grid, Dialog, IconButton, Box, Typography } from "@mui/material";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import profileImage from "../../assets/Images/profile-icon.jpg";
 
-function View() {
+function View({ data }) {
   const [open, setOpen] = useState(false);
+
   return (
     <Box>
       <IconButton
@@ -43,33 +45,27 @@ function View() {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Typography variant="h5">Name :-</Typography>
-              <Typography sx={{ fontWeight: 200 }}>Arun Patal</Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.name}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="h5">Contact No :-</Typography>
-              <Typography sx={{ fontWeight: 200 }}>7224851233</Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.contactNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="h5">Gender :-</Typography>
-              <Typography sx={{ fontWeight: 200 }}>Other</Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.gender}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="h5">DOB :-</Typography>
-              <Typography sx={{ fontWeight: 200 }}>19-06-2023</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5">Higher Qualification :-</Typography>
-              <Typography sx={{ fontWeight: 200 }}>B.Tech</Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.dob}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="h5">Email ID :- </Typography>
-              <Typography sx={{ fontWeight: 200 }}>arunpatal@gmail.com</Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.email}</Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h5">Address :</Typography>
-              <Typography sx={{ fontWeight: 200 }}>
-                96 , A Green Park CoLony Dhar Road Indore , Indore (M.P)
-              </Typography>
+              <Typography sx={{ fontWeight: 200 }}>{data.address}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -77,4 +73,16 @@ function View() {
     </Box>
   );
 }
+View.propTypes = {
+  data: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    contactNumber: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    dob: PropTypes.string.isRequired,
+    // Add other properties as needed
+  }).isRequired,
+};
 export default View;

@@ -1,19 +1,19 @@
-const Student = require("../../repositories/admin/Student");
+const Courses = require("../../repositories/admin/Courses");
 
 module.exports.list = function (req, res, next) {
-  Student.studentList(req, function (data) {
+  Courses.courseList(req, function (data) {
     res.send(data);
   });
 };
 
 module.exports.add = async function (req, res, next) {
-  Student.add(req, res, function (data) {
+  Courses.add(req, res, function (data) {
     res.send(data);
   });
 };
 
 module.exports.update = function (req, res, next) {
-  Student.update(req, res, function (data) {
+  Courses.update(req, res, function (data) {
     res.send(data);
   });
 };
@@ -26,7 +26,7 @@ module.exports.update = function (req, res, next) {
 // };
 
 module.exports.delete = function (req, res, next) {
-  Student.delete(req, res, function (data) {
+  Courses.delete(req, res, function (data) {
     console.log(data);
     res.send(data);
   });

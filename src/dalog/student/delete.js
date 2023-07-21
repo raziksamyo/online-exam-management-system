@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import MDButton from "components/MDButton";
+import PropTypes from "prop-types";
+import axios from "axios";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import {
   Dialog,
   DialogActions,
@@ -9,16 +15,16 @@ import {
   Box,
 } from "@mui/material";
 
-function DeleteStudent({ data, list }) {
+function Delete({ data, list }) {
   const { _id } = data;
-
+  // console.log("data", data);
   const [isOpen, setIsOpen] = useState(false);
   const handelClick = () => {
     axios.post(`http://localhost:5000/api/admin/student/delete/${_id}`).then((res) => {
       console.log("Res", res);
     });
-    setIsOpen(false);
     list();
+    setIsOpen(false);
   };
   return (
     <Box>
@@ -65,7 +71,7 @@ function DeleteStudent({ data, list }) {
   );
 }
 
-DeleteTeacher.propTypes = {
+Delete.propTypes = {
   data: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -74,10 +80,6 @@ DeleteTeacher.propTypes = {
     address: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     dob: PropTypes.string.isRequired,
-    joinDate: PropTypes.string.isRequired,
-    experience: PropTypes.number.isRequired,
-    qualification: PropTypes.arrayOf(PropTypes.string).isRequired,
-
     // Add other properties as needed
   }).isRequired,
   list: PropTypes.shape({
@@ -88,12 +90,8 @@ DeleteTeacher.propTypes = {
     address: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     dob: PropTypes.string.isRequired,
-    joinDate: PropTypes.string.isRequired,
-    experience: PropTypes.number.isRequired,
-    qualification: PropTypes.arrayOf(PropTypes.string).isRequired,
-
     // Add other properties as needed
   }).isRequired,
 };
 
-export default DeleteStudent;
+export default Delete;

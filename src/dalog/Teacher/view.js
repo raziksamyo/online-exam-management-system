@@ -6,11 +6,15 @@ import profileImage from "../../assets/Images/profile-icon.jpg";
 
 function View({ data }) {
   const [open, setOpen] = useState(false);
-  console.log("data", data);
+
+  const handelview = () => {
+    setOpen(true);
+    console.log("Data", data);
+  };
   return (
     <Box>
       <IconButton
-        onClick={() => setOpen(true)}
+        onClick={handelview}
         color="info"
         sx={{
           "&:hover": {

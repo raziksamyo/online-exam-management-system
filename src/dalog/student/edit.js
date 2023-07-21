@@ -45,6 +45,7 @@ function Edit({ editData, list }) {
       address: data.address,
       contactNumber: data.contactNumber,
     };
+    console.log("payload", payload);
     axios
       .post(`http://localhost:5000/api/admin/student/update/${_id}`, payload)
       .then((res) => {
@@ -117,15 +118,16 @@ function Edit({ editData, list }) {
                   <InputLabel>Gender</InputLabel>
                   <Select
                     label="Age"
-                    {...register("gender", { required: "PLease selected Gender" })}
-                    error={errors?.gender}
-                    helperText={errors?.gender?.message}
                     defaultValue={editData.gender}
-                    onChange={(e) => setValue(e.target.value)}
+                    {...register("gender", { required: "Gender is required" })}
+                    onChange={(e) => {
+                      setValue("gender", e.target.value);
+                    }}
                     sx={{ padding: "12px" }}
+                    error={!!errors?.gender}
                   >
-                    <MenuItem value={10}>Male</MenuItem>
-                    <MenuItem value={20}>Female</MenuItem>
+                    <MenuItem value="male">Male</MenuItem>
+                    <MenuItem value="female">Female</MenuItem>
                   </Select>
                   {errors?.gender && (
                     <FormHelperText sx={{ color: "red" }}>{errors?.gender?.message}</FormHelperText>
@@ -153,7 +155,7 @@ function Edit({ editData, list }) {
                   error={errors?.password}
                   helperText={errors?.password?.message}
                   onChange={(e) => {
-                    setValue(+e.target.value);
+                    setValue(e.target.value);
                   }}
                 />
               </Grid>

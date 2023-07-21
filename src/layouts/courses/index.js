@@ -4,9 +4,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box, IconButton } from "@mui/material";
 import Add from "dalog/couses/add";
 import Edit from "dalog/couses/edit";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
+import axios from "axios";
 import AddQuestion from "dalog/question/addquestion";
 import Edits from "dalog/question/edit";
 import Delete from "components/Delete";
@@ -72,6 +73,24 @@ const Rows = [
 ];
 function Courses() {
   const [open, setOpen] = useState(false);
+
+  const teacherData=async(res)=>{
+    axios.get("")
+  }
+  const courseData = async () => {
+    axios
+      .get("http://localhost:5000/api/admin/course/list")
+      .then((res) => {
+        console.log("res", res);
+        teacherData(res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  useEffect(() => {
+    courseData();
+  }, []);
   const handelClick = () => {
     setOpen(!open);
   };
