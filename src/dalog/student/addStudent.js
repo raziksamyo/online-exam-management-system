@@ -12,14 +12,17 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  FormHelperText,
 } from "@mui/material";
 import MDButton from "components/MDButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileDocumentEdit } from "mdi-material-ui";
+import dayjs from "dayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import axios from "axios";
 
 function Add() {
   const [open, setOpen] = useState(false);
@@ -33,7 +36,24 @@ function Add() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("Data", data);
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      contactNumber: data.contactNumber,
+      gender: data.gender,
+      dob: data.dob,
+      address: data.address,
+    };
+    axios
+      .post(`http://localhost:5000/api/admin/student/add`, payload)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("errrors", err);
+      });
+    reset();
   };
 
   const handleClose = () => {
@@ -112,22 +132,22 @@ function Add() {
               <Grid item sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
-                  <Select label="Age" value={gender} onChange={handleChange}>
+                  <Select
+                    label="Age"
+                    {...register("gender", { required: "PLease selected Teacher Name" })}
+                    error={errors?.gender}
+                    helperText={errors?.gender?.message}
+                    value={gender}
+                    onChange={handleChange}
+                    sx={{ padding: "12px" }}
+                  >
                     <MenuItem value={10}>Male</MenuItem>
                     <MenuItem value={20}>Female</MenuItem>
                   </Select>
+                  {errors?.Gender && (
+                    <FormHelperText sx={{ color: "red" }}>{errors?.Gender?.message}</FormHelperText>
+                  )}
                 </FormControl>
-              </Grid>
-              <Grid item sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    {...register("dob")}
-                    label="Date of Birth"
-                    value={watch("dob")}
-                    onChange={(value) => setValue("dob", value)}
-                    sx={{ width: "100%" }}
-                  />
-                </LocalizationProvider>
               </Grid>
               <Grid item sm={6}>
                 <TextField
@@ -143,11 +163,14 @@ function Add() {
               </Grid>
               <Grid item sm={6}>
                 <TextField
+                  {...register("password", { required: "Please enter a password" })}
                   fullWidth
-                  label="Higher Qualification"
-                  {...register("qualifications", { required: "Please filed Higher Qualification" })}
-                  error={errors?.qualifications}
-                  helperText={errors.qualifications?.message}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  label="Password"
+                  helperText={errors?.password?.message}
+                  error={errors?.password}
                 />
               </Grid>
               <Grid item sm={6}>
@@ -163,31 +186,18 @@ function Add() {
                   error={errors.address}
                 />
               </Grid>
-
               <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     {...register("dob")}
-                    label="Date of Birth"
-                    value={watch("dob")}
-                    onChange={(value) => setValue("dob", value)}
+                    label="DOB"
+                    defaultValue={dayjs(watch("dob"))}
+                    onChange={(e) => {
+                      setValue("dob", e.$d);
+                    }}
                     sx={{ width: "100%" }}
                   />
                 </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("education", { required: "Please enter a Education" })}
-                  fullWidth
-                  onChange={(e) => {
-                    if (+e.target.value < 0) e.target.value = 0;
-                    setValue(e.target.name, e.target.value);
-                  }}
-                  type="number"
-                  label="Education"
-                  helperText={errors?.education?.message}
-                  error={errors?.education}
-                />
               </Grid>
             </Grid>
           </DialogContent>

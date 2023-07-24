@@ -11,8 +11,20 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 
-function Delete() {
+function Delete({ deleteData }) {
+  console.log("deleta", deleteData);
   const [isOpen, setIsOpen] = React.useState(false);
+  const { _id } = deleteData;
+  const handelDelete = () => {
+    axios
+      .post(`http://localhost:5000/api/admin/exam/delete/${_id}`)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("res", err);
+      });
+  };
   return (
     <MDBox>
       <IconButton
@@ -40,7 +52,7 @@ function Delete() {
           <Button variant="contained" onClick={() => setIsOpen(false)} color="error">
             No
           </Button>
-          <MDButton variant="contained" color="error">
+          <MDButton variant="contained" color="error" onClick={handelDelete}>
             Yes
           </MDButton>
         </DialogActions>
@@ -48,5 +60,10 @@ function Delete() {
     </MDBox>
   );
 }
-
+Delete.propTypes = {
+  deleteData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    // Add other properties as needed
+  }).isRequired,
+};
 export default Delete;

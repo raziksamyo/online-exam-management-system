@@ -29,6 +29,7 @@ import {
 
 // OnlineEMS React context
 import { useMaterialUIController, setTransparentNavbar, setMiniSidenav } from "context";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -93,6 +94,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <Link to="/authentication/sign-in/basic">
                 <IconButton sx={navbarIconButton} size="large" disableRipple>
                   <Icon sx={iconsStyle}>account_circle</Icon>
+                </IconButton>
+              </Link>
+              <Link to="/authentication/sign-in/basic">
+                <IconButton>
+                  <LogoutIcon />
                 </IconButton>
               </Link>
               <IconButton

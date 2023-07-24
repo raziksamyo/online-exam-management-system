@@ -4,9 +4,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { Box, IconButton } from "@mui/material";
 import Add from "dalog/couses/add";
 import Edit from "dalog/couses/edit";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MDButton from "components/MDButton";
 // import AddQuestion from "layouts/Addquestion";
+import axios from "axios";
 import AddQuestion from "dalog/question/addquestion";
 import Edits from "dalog/question/edit";
 import Delete from "components/Delete";
@@ -49,9 +50,43 @@ const Rows = [
     Question: "Node js as a runtime enivornment",
     action: "edit",
   },
+  {
+    id: 3,
+    Question: "Node js as a runtime enivornment",
+    action: "edit",
+  },
+  {
+    id: 4,
+    Question: "Node js as a runtime enivornment",
+    action: "edit",
+  },
+  {
+    id: 5,
+    Question: "Node js as a runtime enivornment",
+    action: "edit",
+  },
+  {
+    id: 6,
+    Question: "Node js as a runtime enivornment",
+    action: "edit",
+  },
 ];
 function Courses() {
   const [open, setOpen] = useState(false);
+
+  const courseData = async () => {
+    axios
+      .get("http://localhost:5000/api/admin/course/list")
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  useEffect(() => {
+    courseData();
+  }, []);
   const handelClick = () => {
     setOpen(!open);
   };
@@ -120,6 +155,30 @@ function Courses() {
       Titel: "React",
       description: "React is a JavaScript library for building user interfaces",
     },
+    {
+      id: 3,
+      teacherID: "Rahul",
+      Titel: "Nodejs",
+      description: "Nodejs is a runtime environment in JavaScript",
+    },
+    {
+      id: 4,
+      teacherID: "Mohit",
+      Titel: "React",
+      description: "React is a JavaScript library for building user interfaces",
+    },
+    {
+      id: 5,
+      teacherID: "Rahul",
+      Titel: "Nodejs",
+      description: "Nodejs is a runtime environment in JavaScript",
+    },
+    {
+      id: 6,
+      teacherID: "Mohit",
+      Titel: "React",
+      description: "React is a JavaScript library for building user interfaces",
+    },
     // Add more data rows as needed
   ];
   // const classes = useStyles();
@@ -162,7 +221,21 @@ function Courses() {
                 "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
                   outline: "none !important",
                 },
+                "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within": {
+                  outline: "none !important",
+                },
+                "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus": {
+                  outline: "none !important",
+                },
               }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
             />
           </Box>
         ) : (
@@ -184,7 +257,18 @@ function Courses() {
                 "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
                   outline: "none !important",
                 },
+                "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within": {
+                  outline: "none !important",
+                },
               }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
             />
           </Box>
         )}
