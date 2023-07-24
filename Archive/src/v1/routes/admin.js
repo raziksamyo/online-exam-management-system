@@ -43,5 +43,7 @@ router.post("/course/delete/:id", course_admin_controller.delete);
 const exam_admin_controller = require("../controllers/admin/ExamController");
 router.get("/exam/list", exam_admin_controller.list);
 router.post("/exam/add", exam_admin_controller.add);
+router.post("/exam/update/:id", exam_admin_controller.update);
+router.post("/exam/delete/:id", exam_admin_controller.delete);
 
 module.exports = router;

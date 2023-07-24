@@ -22,16 +22,24 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FileDocumentEdit } from "mdi-material-ui";
 import CloseIcon from "@mui/icons-material/Close";
+import { PropTypes } from "prop-types";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
+import axios from "axios";
 
-function Add() {
+function Add({ examData }) {
   const [open, setOpen] = useState(false);
+  console.log("exam", examData);
+  // const { _id, title } = !examData;
+
+  const { _id, title } = examData;
+  // console.log("id", _id);
+  // console.log("id", _id);
+  // console.log("title", title);
   const {
     handleSubmit,
     register,
     setValue,
     reset,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -41,6 +49,23 @@ function Add() {
   };
   const onSubmit = (data) => {
     console.log("Data", data);
+    const payload = {
+      date: data.date,
+      starttime: data.starttime,
+      title: data.examTitle,
+      courseId: data.coursesName,
+      marks: Number(data.mark),
+      totalquestion: Number(data.totalquestion),
+      duration: Number(data.duration),
+    };
+    axios
+      .post("http://localhost:5000/api/admin/exam/add", payload)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
     reset();
   };
   return (
@@ -92,10 +117,11 @@ function Add() {
                     id="demo-simple-select-helper"
                     sx={{ padding: "12px" }}
                     label="CourseName"
+                    onChange={(e) => {
+                      setValue("courseName", e.target.value);
+                    }}
                   >
-                    <MenuItem value="Nodejs">Nodejs</MenuItem>
-                    <MenuItem>Reactjs</MenuItem>
-                    <MenuItem>Javascript</MenuItem>
+                    <MenuItem value={_id}>{title}</MenuItem>
                   </Select>
                   {errors.coursesName && (
                     <FormHelperText sx={{ color: "red" }}>
@@ -110,7 +136,7 @@ function Add() {
                   fullWidth
                   {...register("examTitle", { required: "Please enter examination name" })}
                   onChange={(e) => {
-                    setValue(e.target.name, e.target.value);
+                    setValue("examTitle", e.target.value);
                   }}
                   helperText={errors?.examTitle?.message}
                   error={errors?.examTitle}
@@ -176,26 +202,17 @@ function Add() {
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <MobileTimePicker
-                    label="endTime"
-                    {...register("endtime", { required: " end time is required" })}
-                    onChange={(endtime) => setValue("endtime", endtime, { shouldValidate: true })}
-                    value={watch("endtime")}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!errors.endtime}
-                        helperText={errors?.endtime?.message}
-                      />
-                    )}
-                  />
-                  {errors?.endtime && (
-                    <FormHelperText sx={{ color: "red" }}>
-                      {errors?.endtime?.message}
-                    </FormHelperText>
-                  )}
-                </LocalizationProvider>
+                <TextField
+                  fullWidth
+                  label="ScheduleTime"
+                  type="number"
+                  {...register("duration", { required: "Please enter Description " })}
+                  onChange={(e) => {
+                    setValue(e.target.name, +e.target.value);
+                  }}
+                  error={!!errors.duration}
+                  helperText={errors?.duration?.message}
+                />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -225,4 +242,11 @@ function Add() {
     </Box>
   );
 }
+Add.propTypes = {
+  examData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    // Add other properties as needed
+  }).isRequired,
+};
 export default Add;

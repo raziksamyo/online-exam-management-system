@@ -59,7 +59,6 @@ module.exports.teacherList = async function (req, next) {
     qualification: "$qualification",
     status: "$status",
   };
-
   TeacherModels.aggregate(
     [{ $match: s_data }, { $sort: { _id: -1 } }, { $project: project }],
     async function (err, data) {

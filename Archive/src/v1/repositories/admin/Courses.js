@@ -18,7 +18,7 @@ module.exports.add = async function (req, res, next) {
     teacher: teacher._id,
     status: 1,
   });
-  console.log("courses", courseData);
+  // console.log("courses", courseData);
   courseData.save(async function (error, data) {
     if (error) {
       return next({
@@ -40,10 +40,11 @@ module.exports.courseList = async function (req, next) {
   var project = {
     title: "$title",
     description: "$description",
-    teactherId: "$_teacherId._id",
+    teacherId: "$teacherId",
     status: "$status",
   };
 
+  // console.log("id", _id);
   CoursesModels.aggregate(
     [
       { $match: s_data },
@@ -51,12 +52,13 @@ module.exports.courseList = async function (req, next) {
       { $project: project },
       {
         $lookup: {
-          from: "teacher",
-          localField: "teacherId_id",
-          foreignField: "teacherId_id", // Field in the Course collection to match
+          from: "teachers",
+          localField: "teacherId",
+          foreignField: "_id", // Field in the Course collection to match
           as: "teacherData", // The name of the new field to store the matched course data
         },
       },
+      // console.log("lookup", lookup),
     ],
     async function (err, data) {
       CoursesModels.aggregate(

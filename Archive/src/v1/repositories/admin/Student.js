@@ -99,7 +99,7 @@ module.exports.delete = async function (req, res, next) {
 };
 
 module.exports.update = async function (req, res, next) {
-  console.log("Dob", req.body.dob);
+  // console.log("Dob", req.body.dob);
   const studentData = {
     name: req.body.name,
     email: req.body.email,

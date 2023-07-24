@@ -74,15 +74,11 @@ const Rows = [
 function Courses() {
   const [open, setOpen] = useState(false);
 
-  const teacherData=async(res)=>{
-    axios.get("")
-  }
   const courseData = async () => {
     axios
       .get("http://localhost:5000/api/admin/course/list")
       .then((res) => {
         console.log("res", res);
-        teacherData(res);
       })
       .catch((err) => {
         console.log("err", err);
